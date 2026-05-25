@@ -19,7 +19,6 @@
 
 .mwg030__stage {
   --mwg-img-w: min(420px, 38vw);
-  /* space for “See more” column + gap between image and label */
   --mwg-cta-slot: clamp(5.5rem, 9vw, 7.25rem);
   --mwg-img-cta-gap: clamp(12px, 1.8vw, 20px);
 
@@ -74,7 +73,6 @@
   outline-offset: 2px;
 }
 
-/* Titles sit toward the right of the wide column, before image + See more */
 .mwg030__title {
   grid-column: 1;
   grid-row: 1;
@@ -110,7 +108,7 @@
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* Image flush left of “See more”, no radius */
+/* Preview panel — framed strip + shadow */
 .mwg030__media-shell {
   position: absolute;
   z-index: 1;
@@ -164,6 +162,15 @@
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
+}
+
+.mwg030__preview-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin: 0 0 8px;
 }
 
 @media (max-width: 720px) {
