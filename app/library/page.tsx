@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { animations } from "@/src/data/animations";
+import AnimationCard from "@/src/components/AnimationCard";
+
 
 function SearchIcon() {
   return (
@@ -63,24 +65,10 @@ export default function LibraryPage() {
       </div>
 
       <section className="grid gap-x-8 gap-y-10 md:grid-cols-2">
-        {animations.map((animation) => (
-          <Link
-            key={animation.slug}
-            href={`/library/${animation.slug}`}
-            className="group flex flex-col gap-3"
-          >
-            <div className="aspect-[16/11] w-full rounded-lg border border-white/10 bg-[#1a1a1a] transition duration-200 group-hover:border-white/20 group-hover:bg-[#1f1f1f]" />
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-[1.85rem] font-normal leading-none tracking-tight text-zinc-100">
-                {animation.title}
-              </h2>
-              <span className="rounded-md border border-white/8 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.16em] text-zinc-300">
-                {animation.category}
-              </span>
-            </div>
-          </Link>
-        ))}
-      </section>
+  {animations.map((animation) => (
+    <AnimationCard key={animation.slug} animation={animation} />
+  ))}
+</section>
     </main>
   );
 }
