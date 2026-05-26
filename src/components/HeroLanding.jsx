@@ -2,19 +2,18 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useHandGesture } from "../hooks/useHandGesture.js";
 import { scrambleTo } from "../utils/scrambleText.js";
-import headerNav from "../assets/header.svg";
 import logoUnion from "../assets/Union.svg";
+import silverIcon from "../assets/silver.svg";
 import interactionIcon from "../assets/interaction.svg";
+import searchIcon from "../assets/search-icon.svg";
 import "./HeroLanding.css";
 
-const KEYWORDS = ["motion", "experience", "exploration", "immersion"];
+const CYCLE_WORDS = ["motion", "experience", "exploration", "immersion"];
 const IDLE_WORD = "interaction";
-/** motion → interaction → experience → interaction → … */
-const CYCLE_WORDS = KEYWORDS.flatMap((word) => [word, IDLE_WORD]);
 const CYCLE_INTERVAL = 1.1;
 const SCRAMBLE_DURATION = 0.45;
 
-export function HeroLanding() {
+export function HeroLanding({ headerAnchorRef }) {
   const keywordRef = useRef(null);
   const headlineBlockRef = useRef(null);
   const alignMeasureRef = useRef(null);
@@ -74,9 +73,10 @@ export function HeroLanding() {
     };
 
     if (isHandUp && !wasHandUpRef.current) {
-      el.classList.add("hero-landing__keyword--active");
       cycleIndexRef.current = 0;
-      scrambleWord(CYCLE_WORDS[0]);
+      scrambleWord(CYCLE_WORDS[0], () => {
+        el.classList.add("hero-landing__keyword--active");
+      });
 
       cycleTimerRef.current = window.setInterval(() => {
         cycleIndexRef.current =
@@ -119,13 +119,19 @@ export function HeroLanding() {
           <img src={logoUnion} alt="owow" width={121} height={26} />
         </a>
 
-        <div className="hero-landing__header-center" aria-hidden>
-          <img src={headerNav} alt="" width={107} height={30} />
+        <div ref={headerAnchorRef} className="hero-landing__silver-anchor">
+          <img src={silverIcon} alt="" className="hero-landing__silver-header" />
         </div>
 
-        <a href="#library" className="hero-landing__cta">
-          Animation Library
-        </a>
+        <div className="hero-landing__header-actions">
+          <a href="#library" className="hero-landing__cta">
+            Animation Library
+          </a>
+          <button type="button" className="hero-landing__search">
+            <img src={searchIcon} alt="" width={15} height={15} />
+            <span>Search</span>
+          </button>
+        </div>
       </header>
 
       <div className="hero-landing__body">
