@@ -5,9 +5,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translate(-50%, -50%);
+  /* translate + scale set inline for handoff into Motion Categories */
   pointer-events: none;
-  will-change: left, top;
+  will-change: left, top, transform, filter, opacity;
 }
 
 .scroll-icons__silver-fixed {
@@ -77,7 +77,7 @@
 
 .scroll-icons {
   position: relative;
-  height: 280vh;
+  height: 252vh;
   background: #0d0d0d;
   margin-top: -1px;
 }

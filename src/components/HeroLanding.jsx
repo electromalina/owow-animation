@@ -114,6 +114,9 @@ export function HeroLanding({ headerAnchorRef }) {
         aria-hidden
       />
 
+      {/* Reserves vertical space matching the fixed header (not duplicated padding). */}
+      <div className="hero-landing__header-spacer" aria-hidden />
+
       <header className="hero-landing__header">
         <a href="/" className="hero-landing__logo" aria-label="owow home">
           <img src={logoUnion} alt="owow" width={121} height={26} />
