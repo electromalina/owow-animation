@@ -21,7 +21,7 @@ function MenuIcon() {
 
 export function Header() {
   return (
-    <header className="border-b border-white/10 bg-[#1b1b1b]">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#1b1b1b]">
       <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center justify-between px-6 md:px-10">
         <Link
           href="/"
