@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { Header } from "@/src/components/header";
+import { AppShell } from "@/src/components/AppShell";
 
 import "./globals.css";
 
@@ -48,10 +48,7 @@ export default function RootLayout({
       <body
         className={`${ppNeueMontrealBook.variable} ${ppNeueMontrealMedium.variable} ${ppNeueMontrealMono.variable} antialiased`}
       >
-        <div className="min-h-screen bg-[#101010] text-white">
-          <Header />
-          {children}
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

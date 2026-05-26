@@ -1,23 +1,6 @@
-import Link from "next/link";
-
+import { AnimationCard } from "@/src/components/AnimationCard";
+import { SearchButton } from "@/src/components/SearchButton";
 import { animations } from "@/src/data/animations";
-
-function SearchIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="h-4 w-4 text-zinc-500"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    >
-      <circle cx="11" cy="11" r="6.5" />
-      <path d="m16 16 4 4" />
-    </svg>
-  );
-}
 
 function FilterIcon() {
   return (
@@ -45,17 +28,10 @@ export default function LibraryPage() {
   return (
     <main className="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 py-8 md:px-10">
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <label className="flex h-12 w-full max-w-[460px] items-center gap-3 rounded-xl border border-white/10 bg-[#1a1a1a] px-4 text-sm text-zinc-300">
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Search Animations"
-            className="w-full bg-transparent outline-none placeholder:text-zinc-500"
-          />
-        </label>
+        <SearchButton />
         <button
           type="button"
-          className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-medium text-black transition hover:bg-zinc-200"
+          className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/10 bg-[#1a1a1a] px-5 text-sm font-medium text-white transition hover:border-white/20 hover:bg-[#222222]"
         >
           <FilterIcon />
           Filters
@@ -64,21 +40,7 @@ export default function LibraryPage() {
 
       <section className="grid gap-x-8 gap-y-10 md:grid-cols-2">
         {animations.map((animation) => (
-          <Link
-            key={animation.slug}
-            href={`/library/${animation.slug}`}
-            className="group flex flex-col gap-3"
-          >
-            <div className="aspect-[16/11] w-full rounded-lg border border-white/10 bg-[#1a1a1a] transition duration-200 group-hover:border-white/20 group-hover:bg-[#1f1f1f]" />
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-[1.85rem] font-normal leading-none tracking-tight text-zinc-100">
-                {animation.title}
-              </h2>
-              <span className="rounded-md border border-white/8 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.16em] text-zinc-300">
-                {animation.category}
-              </span>
-            </div>
-          </Link>
+          <AnimationCard key={animation.slug} animation={animation} />
         ))}
       </section>
     </main>

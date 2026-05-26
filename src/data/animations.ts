@@ -28,6 +28,9 @@ export type Animation = {
   technicalNotes: string[];
   useCases: UseCase[];
   params: AnimationParam[];
+  /** Hover preview on library cards (Monica) */
+  videoSrc?: string;
+  gifSrc?: string;
 };
 
 export type AnimationState = {
@@ -75,6 +78,8 @@ export const animations: Animation[] = [
           "Reads as polish without committing to a full cursor takeover.",
       },
     ],
+    videoSrc: "/animations/animation-1/preview.mp4",
+    gifSrc: "/animations/animation-1/test.gif",
     params: [
       {
         key: "strength",
@@ -131,6 +136,7 @@ export const animations: Animation[] = [
     about: ["Placeholder about text for animation 2."],
     technicalNotes: ["Placeholder technical notes."],
     useCases: [{ title: "Placeholder", description: "Placeholder use case." }],
+    videoSrc: "/animations/animation-2/preview.mp4",
     params: [],
   },
   {
@@ -146,6 +152,7 @@ export const animations: Animation[] = [
     about: ["Placeholder about text for animation 3."],
     technicalNotes: ["Placeholder technical notes."],
     useCases: [{ title: "Placeholder", description: "Placeholder use case." }],
+    videoSrc: "/animations/animation-3/preview.mp4",
     params: [],
   },
   {
@@ -161,6 +168,7 @@ export const animations: Animation[] = [
     about: ["Placeholder about text for animation 4."],
     technicalNotes: ["Placeholder technical notes."],
     useCases: [{ title: "Placeholder", description: "Placeholder use case." }],
+    videoSrc: "/animations/animation-4/preview.mp4",
     params: [],
   },
   {
@@ -176,6 +184,7 @@ export const animations: Animation[] = [
     about: ["Placeholder about text for animation 5."],
     technicalNotes: ["Placeholder technical notes."],
     useCases: [{ title: "Placeholder", description: "Placeholder use case." }],
+    videoSrc: "/animations/animation-5/preview.mp4",
     params: [],
   },
   {
@@ -191,6 +200,7 @@ export const animations: Animation[] = [
     about: ["Placeholder about text for animation 6."],
     technicalNotes: ["Placeholder technical notes."],
     useCases: [{ title: "Placeholder", description: "Placeholder use case." }],
+    videoSrc: "/animations/animation-6/preview.mp4",
     params: [],
   },
 ];

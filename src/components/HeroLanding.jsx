@@ -1,12 +1,19 @@
+"use client";
+
 import { useEffect, useLayoutEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
+import { SearchButton } from "./SearchButton";
 import { useHandGesture } from "../hooks/useHandGesture.js";
 import { scrambleTo } from "../utils/scrambleText.js";
-import logoUnion from "../assets/Union.svg";
-import silverIcon from "../assets/silver.svg";
-import interactionIcon from "../assets/interaction.svg";
-import searchIcon from "../assets/search-icon.svg";
 import "./HeroLanding.css";
+
+const LANDING_ASSETS = {
+  logo: "/landing/union.svg",
+  silver: "/landing/silver.svg",
+  interaction: "/landing/interaction.svg",
+  search: "/landing/search-icon.svg",
+};
 
 const CYCLE_WORDS = ["motion", "experience", "exploration", "immersion"];
 const IDLE_WORD = "interaction";
@@ -116,21 +123,25 @@ export function HeroLanding({ headerAnchorRef }) {
 
       <header className="hero-landing__header">
         <a href="/" className="hero-landing__logo" aria-label="owow home">
-          <img src={logoUnion} alt="owow" width={121} height={26} />
+          <img src={LANDING_ASSETS.logo} alt="owow" width={121} height={26} />
         </a>
 
         <div ref={headerAnchorRef} className="hero-landing__silver-anchor">
-          <img src={silverIcon} alt="" className="hero-landing__silver-header" />
+          <img
+            src={LANDING_ASSETS.silver}
+            alt=""
+            className="hero-landing__silver-header"
+          />
         </div>
 
         <div className="hero-landing__header-actions">
-          <a href="#library" className="hero-landing__cta">
+          <Link href="/library" className="hero-landing__cta">
             Animation Library
-          </a>
-          <button type="button" className="hero-landing__search">
-            <img src={searchIcon} alt="" width={15} height={15} />
+          </Link>
+          <SearchButton className="hero-landing__search">
+            <img src={LANDING_ASSETS.search} alt="" width={15} height={15} />
             <span>Search</span>
-          </button>
+          </SearchButton>
         </div>
       </header>
 
@@ -160,7 +171,7 @@ export function HeroLanding({ headerAnchorRef }) {
                   ref={glyphRef}
                   aria-hidden
                 >
-                  <img src={interactionIcon} alt="" />
+                  <img src={LANDING_ASSETS.interaction} alt="" />
                 </span>
                 <span className="hero-landing__line-2-text">
                   through{" "}

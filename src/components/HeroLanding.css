@@ -3,8 +3,8 @@
   --hero-text: #fff;
   --hero-muted: rgba(255, 255, 255, 0.5);
   --hero-accent: #feb800;
-  --hero-font: "PP Neue Montreal", system-ui, sans-serif;
-  --hero-font-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
+  --hero-font: var(--font-heading), var(--font-body), system-ui, sans-serif;
+  --hero-font-mono: var(--font-mono), ui-monospace, monospace;
 
   position: relative;
   display: flex;

@@ -1,14 +1,17 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import {
   mapProgress,
   useDocumentScrollProgress,
   useHeaderAnchorOrigin,
 } from "../hooks/useIconScrollAnimation.js";
-import silverIcon from "../assets/silver.svg";
 import "./ScrollIconSequence.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+
+const SILVER_GLOBE_SRC = "/landing/silver.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -243,7 +246,7 @@ export function ScrollIconSequence({ headerAnchorRef }) {
         }}
       >
         <img
-          src={silverIcon}
+          src={SILVER_GLOBE_SRC}
           alt=""
           className="scroll-icons__silver-fixed"
           style={{
