@@ -189,6 +189,94 @@ function SliderRow({
   );
 }
 
+// ─── Code generation ─────────────────────────────────────────────────────────
+
+// Plain text version — used when copying to clipboard
+function getRawCode(animation: Animation, state: AnimationState): string {
+  const paramLines = animation.params
+    .map((p) => `  ${p.key}: ${Number(state.params[p.key] ?? p.defaultValue).toFixed(p.decimals)},`)
+    .join("\n");
+
+  if (state.platform === "web") {
+    return [
+      `import { useMagneticCursor } from '@owow/atlas'`,
+      ``,
+      `const ref = useMagneticCursor({`,
+      paramLines,
+      `})`,
+      ``,
+      `return <button ref={ref} data-magnetic>Get started</button>`,
+    ].join("\n");
+  }
+  return [
+    `import { useMagneticPan } from '@owow/atlas/native'`,
+    ``,
+    `const gesture = useMagneticPan({`,
+    paramLines,
+    `})`,
+    ``,
+    `return (`,
+    `  <GestureDetector gesture={gesture}>`,
+    `    <Animated.View />`,
+    `  </GestureDetector>`,
+    `)`,
+  ].join("\n");
+}
+
+// HTML string with <span> syntax coloring — rendered via dangerouslySetInnerHTML.
+// Safe because every value comes from static animations.ts, never from user input.
+function buildHighlightedCode(
+  animation: Animation,
+  state: AnimationState,
+  lastChangedKey: string | null,
+): string {
+  const kw   = (t: string) => `<span style="color:#d0d2cc">${t}</span>`;
+  const fn   = (t: string) => `<span style="color:#ffffff">${t}</span>`;
+  const str  = (t: string) => `<span style="color:#b8c9a8">${t}</span>`;
+  const num  = (t: string) => `<span style="color:#e2e2e2">${t}</span>`;
+  const prop = (t: string) => `<span style="color:#d0d2cc">${t}</span>`;
+  const pn   = (t: string) => `<span style="color:rgba(255,255,255,0.45)">${t}</span>`;
+
+  // adds a beige left-border to the line whose param was just changed
+  function line(content: string, paramKey?: string) {
+    const highlight = paramKey != null && paramKey === lastChangedKey;
+    const style = highlight
+      ? `display:block;background:rgba(208,210,204,0.06);box-shadow:inset 2px 0 0 #d0d2cc;padding-left:6px;margin-left:-6px`
+      : `display:block`;
+    return `<span style="${style}">${content}</span>`;
+  }
+
+  const paramLines = animation.params.map(({ key, decimals, defaultValue }) => {
+    const value = Number(state.params[key] ?? defaultValue).toFixed(decimals);
+    return line(`  ${prop(key)}${pn(":")} ${num(value)}${pn(",")}`, key);
+  });
+
+  if (state.platform === "web") {
+    return [
+      line(`${kw("import")} ${pn("{")} ${fn("useMagneticCursor")} ${pn("}")} ${kw("from")} ${str("'@owow/atlas'")}`),
+      line(` `),
+      line(`${kw("const")} ref ${pn("=")} ${fn("useMagneticCursor")}${pn("({")}`),
+      ...paramLines,
+      line(`${pn("})")}`),
+      line(` `),
+      line(`${kw("return")} ${pn("<")}${fn("button")} ${prop("ref")}${pn("={")}ref${pn("}")} ${prop("data-magnetic")}${pn(">")}Get started${pn("</")}${fn("button")}${pn(">")} `),
+    ].join("\n");
+  }
+  return [
+    line(`${kw("import")} ${pn("{")} ${fn("useMagneticPan")} ${pn("}")} ${kw("from")} ${str("'@owow/atlas/native'")}`),
+    line(` `),
+    line(`${kw("const")} gesture ${pn("=")} ${fn("useMagneticPan")}${pn("({")}`),
+    ...paramLines,
+    line(`${pn("})")}`),
+    line(` `),
+    line(`${kw("return")} ${pn("(")}`),
+    line(`  ${pn("<")}${fn("GestureDetector")} ${prop("gesture")}${pn("={")}gesture${pn("}>")} `),
+    line(`    ${pn("<")}${fn("Animated.View")} ${pn("/>")} `),
+    line(`  ${pn("</")}${fn("GestureDetector")}${pn(">")} `),
+    line(`${pn(")")}`),
+  ].join("\n");
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function ControlsSidebar({
@@ -198,6 +286,19 @@ export function ControlsSidebar({
   onPlatformChange,
   onReset,
 }: ControlsSidebarProps) {
+  // which param line to highlight; cleared 1.5s after the last change
+  const [lastChangedKey, setLastChangedKey] = useState<string | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  function handleParamChange(key: string, value: number) {
+    clearTimeout(timerRef.current);
+    setLastChangedKey(key);
+    timerRef.current = setTimeout(() => setLastChangedKey(null), 1500);
+    onParamChange(key, value);
+  }
+
+  const highlightedCode = buildHighlightedCode(animation, state, lastChangedKey);
+
   return (
     <aside className="self-start xl:sticky xl:top-[92px]">
       <div
@@ -242,11 +343,26 @@ export function ControlsSidebar({
                   param={p}
                   value={state.params[p.key] ?? p.defaultValue}
                   isFirst={i === 0}
-                  onParamChange={onParamChange}
+                  onParamChange={handleParamChange}
                 />
               ))}
             </div>
           )}
+
+          {/* ── Code block ── */}
+          <div className="border-t border-white/10 p-5">
+            <span className="mb-3 block font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-white">
+              Code
+            </span>
+            <pre
+              className="overflow-x-auto rounded-md border border-white/10 bg-black/60 p-4 font-[family-name:var(--font-mono)] text-[12px] leading-[1.7] text-white/90"
+              dangerouslySetInnerHTML={{ __html: highlightedCode }}
+            />
+            <p className="mt-2.5 font-[family-name:var(--font-mono)] text-[11px] text-white/30">
+              {state.platform === "web" ? "npm i @owow/atlas" : "npm i @owow/atlas-native"}
+            </p>
+          </div>
+
         </div>
 
       </div>
