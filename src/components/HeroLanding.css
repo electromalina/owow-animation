@@ -5,6 +5,8 @@
   --hero-accent: #feb800;
   --hero-font: "PP Neue Montreal", system-ui, sans-serif;
   --hero-font-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
+  /* Top inset; synced with fixed header (tighter = bar sits higher) */
+  --hero-padding-top: clamp(32px, 3.75vw, 50px);
 
   position: relative;
   display: flex;
@@ -14,7 +16,7 @@
   box-sizing: border-box;
   background: var(--hero-bg);
   color: var(--hero-text);
-  padding: clamp(50px, 5vw, 74px) clamp(20px, 6vw, 131px) clamp(20px, 4vw, 74px);
+  padding: var(--hero-padding-top) clamp(20px, 6vw, 131px) clamp(20px, 4vw, 74px);
   overflow: hidden;
 }
 
@@ -27,14 +29,36 @@
   z-index: -1;
 }
 
+/** In-flow slot so hero content stays below where the fixed bar sits */
+.hero-landing__header-spacer {
+  flex-shrink: 0;
+  width: 100%;
+  /* ~ row min-height + silver anchor vertical offset */
+  min-height: 78px;
+  pointer-events: none;
+}
+
 .hero-landing__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 24px;
   flex-shrink: 0;
   margin-bottom: 0;
-  min-height: 70px;
+  min-height: 62px;
+  padding: var(--hero-padding-top) clamp(20px, 6vw, 131px) 0;
+  box-sizing: border-box;
+  background: transparent;
+  pointer-events: none;
+}
+
+.hero-landing__header > * {
+  pointer-events: auto;
 }
 
 .hero-landing__logo {
@@ -56,7 +80,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 22px;
+  margin-top: 12px;
+  pointer-events: none;
 }
 
 .hero-landing__silver-header {
@@ -285,6 +310,11 @@
 }
 
 @media (max-width: 900px) {
+  .hero-landing__header-spacer {
+    /* Two-row header: logo/actions + centered silver anchor */
+    min-height: 112px;
+  }
+
   .hero-landing__header {
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -300,7 +330,7 @@
     grid-area: center;
     grid-column: 1 / -1;
     justify-self: center;
-    margin-top: 18px;
+    margin-top: 11px;
   }
 
   .hero-landing__header-actions {

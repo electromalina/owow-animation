@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   mapProgress,
   useDocumentScrollProgress,
@@ -31,6 +31,12 @@ const COPY_WHITE = "#ffffff";
 const LIGHT_WAVE_WIDTH = 5;
 /** Rise phase share; remainder = grey→white “light pass” (scrub-driven) */
 const REVEAL_SHARE = 0.48;
+
+/** Fade + blur handoff into Motion Categories (scroll progress 0→1 on About section) */
+const CLUSTER_FADE_START = 0.82;
+const CLUSTER_FADE_END = 1;
+/** Peak blur mid-fade for a soft “vignette into next section” mood (px) */
+const CLUSTER_BLUR_MAX = 13;
 
 function getSilverBaseWidth() {
   if (typeof window === "undefined") return SILVER_ABOUT_PX;
@@ -77,6 +83,19 @@ const COPY_BODY =
   "Instead of static showcases, users can explore motion systems through live previews, experimental interactions, and real-time controls designed for creative exploration.";
 
 export function ScrollIconSequence({ headerAnchorRef }) {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const fn = () => setPrefersReducedMotion(mq.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+
   const sectionRef = useRef(null);
   const copyRef = useRef(null);
   const wordsRef = useRef([]);
@@ -99,6 +118,20 @@ export function ScrollIconSequence({ headerAnchorRef }) {
 
   const silverSize = getSilverBaseWidth() * scale * 0.85;
   const parallaxY = -(mapProgress(progress, 0.2, 0.85, 0, 1) * 18);
+  const fadeT = mapProgress(
+    progress,
+    CLUSTER_FADE_START,
+    CLUSTER_FADE_END,
+    0,
+    1
+  );
+  const clusterOpacity = 1 - fadeT;
+  const blurT = prefersReducedMotion
+    ? 0
+    : Math.sin(Math.PI * gsap.utils.clamp(0, 1, fadeT));
+  const clusterBlurPx = CLUSTER_BLUR_MAX * blurT;
+  /** Subtle pull-back alongside fade */
+  const clusterScaleHandoff = prefersReducedMotion ? 1 : 1 - fadeT * 0.04;
 
   const applyWordLight = (lightProgressVal) => {
     const words = wordsRef.current;
@@ -240,6 +273,12 @@ export function ScrollIconSequence({ headerAnchorRef }) {
         style={{
           left: posX,
           top: posY,
+          opacity: clusterOpacity,
+          transform: `translate(-50%, -50%) scale(${clusterScaleHandoff})`,
+          filter:
+            prefersReducedMotion || clusterBlurPx < 0.2
+              ? undefined
+              : `blur(${clusterBlurPx}px)`,
         }}
       >
         <img

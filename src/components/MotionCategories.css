@@ -1,0 +1,289 @@
+.motion-categories {
+  --motion-accent: #feb800;
+
+  position: relative;
+  z-index: 2;
+  background: #0d0d0d;
+  color: #fff;
+  margin-top: clamp(-240px, -28vh, -80px);
+}
+
+.motion-categories__pin {
+  min-height: 100svh;
+  box-sizing: border-box;
+  /* Tighter left inset pulls the hub + titles toward the viewport edge */
+  padding: clamp(28px, 5vw, 56px) clamp(16px, 3.5vw, 56px) clamp(28px, 5vw, 56px)
+    clamp(10px, 1.75vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.motion-categories__eyebrow {
+  margin: 0;
+  font-family: "PP Neue Montreal Mono", ui-monospace, monospace;
+  font-size: clamp(13px, 1.35vw, 16px);
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.motion-categories__hub-header {
+  margin: 0;
+  padding: 0;
+  flex: 0 1 auto;
+  max-width: min(30em, 78vw);
+  min-width: 0;
+}
+
+.motion-categories__hub .motion-categories__eyebrow {
+  text-align: left;
+  font-style: italic;
+  color: #fff;
+  letter-spacing: 0.08em;
+  font-size: clamp(12px, 1.5vw, 20px);
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.motion-categories__hub {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(12px, 1.8vw, 24px);
+  padding-inline-end: min(12px, 1.5vw);
+  margin-inline-start: clamp(24px, 3.2vw, 64px);
+}
+
+.motion-categories__static-eyebrow {
+  margin: 0 0 clamp(20px, 3vh, 36px);
+  max-width: min(1680px, 100vw);
+  width: 100%;
+  padding: 0;
+}
+
+.motion-categories__static-eyebrow .motion-categories__eyebrow {
+  font-style: italic;
+  color: #fff;
+  letter-spacing: 0.08em;
+  font-size: clamp(12px, 1.5vw, 20px);
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.motion-categories__stage {
+  position: relative;
+  width: min(1680px, 100vw);
+  margin-inline: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.56fr) minmax(0, 1fr) minmax(40px, 0.06fr);
+  column-gap: clamp(4px, 0.6vw, 14px);
+  row-gap: clamp(16px, 3vh, 28px);
+  align-items: center;
+  min-height: min(640px, 74vh);
+}
+
+.motion-categories__wheel-item--accent .motion-categories__wheel-title,
+.motion-categories__wheel-item--accent .motion-categories__wheel-desc {
+  color: var(--motion-accent);
+}
+
+.motion-categories__explore-cta {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.motion-categories__explore-cta:hover,
+.motion-categories__explore-cta:focus-visible {
+  text-decoration: none;
+}
+
+.motion-categories__explore-cta .motion-categories__wheel-title {
+  font-size: clamp(28px, 4.5vw, 60px);
+}
+
+.motion-categories__explore-cta .motion-categories__wheel-desc {
+  font-size: clamp(13px, 1.2vw, 16px);
+}
+
+.motion-categories__static-row--accent .motion-categories__wheel-title,
+.motion-categories__static-row--accent .motion-categories__wheel-desc,
+.motion-categories__static-row--accent .motion-categories__index {
+  color: var(--motion-accent);
+}
+
+.motion-categories__icon-wrap {
+  flex-shrink: 0;
+  width: clamp(96px, 14vw, 148px);
+  height: clamp(96px, 14vw, 148px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.motion-categories__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.motion-categories__shape {
+  opacity: 0;
+  isolation: isolate;
+}
+
+.motion-categories__wheel-col {
+  position: relative;
+  height: min(680px, 72vh);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  perspective: 900px;
+  padding-inline-start: clamp(8px, 1.2vw, 28px);
+}
+
+.motion-categories__wheel {
+  position: relative;
+  width: min(860px, 100%);
+  height: 100%;
+}
+
+.motion-categories__wheel-item {
+  position: absolute;
+  left: clamp(8px, 1.5vw, 28px);
+  right: 0;
+  top: 50%;
+  /* Align title cap-height with vertical center (matches icon center) */
+  margin-top: -0.55em;
+  text-align: left;
+  will-change: transform, filter, opacity;
+}
+
+.motion-categories__wheel-title {
+  margin: 0;
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+  font-size: clamp(34px, 5.2vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #fff;
+  will-change: filter, opacity;
+}
+
+.motion-categories__wheel-desc {
+  margin: clamp(10px, 1.6vh, 18px) 0 0;
+  max-width: min(520px, 92%);
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+  font-size: clamp(14px, 1.35vw, 18px);
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.72);
+  will-change: filter, opacity;
+}
+
+.motion-categories__index-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.motion-categories__index {
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.motion-categories__static-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: min(1680px, 100vw);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.motion-categories__static-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .motion-categories__pin {
+    align-items: stretch;
+  }
+
+  .motion-categories__stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .motion-categories__hub {
+    order: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-inline-end: 0;
+    gap: clamp(20px, 5vw, 36px);
+  }
+
+  .motion-categories__hub-header {
+    max-width: min(30em, 92vw);
+  }
+
+  .motion-categories__hub .motion-categories__eyebrow {
+    text-align: left;
+  }
+
+  .motion-categories__wheel-col {
+    order: 2;
+    height: min(480px, 58vh);
+    justify-content: center;
+    padding-inline-start: clamp(8px, 2.5vw, 20px);
+  }
+
+  .motion-categories__index-col {
+    order: 3;
+    justify-content: center;
+    height: auto;
+    padding-top: 8px;
+  }
+
+  .motion-categories__icon-wrap {
+    margin-inline: 0;
+  }
+
+  .motion-categories__wheel-item {
+    left: 0;
+    text-align: center;
+  }
+
+  .motion-categories__wheel-desc {
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-categories__wheel-col {
+    display: none;
+  }
+}
