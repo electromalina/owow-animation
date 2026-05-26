@@ -1,0 +1,33 @@
+.icon-trio {
+  --icon-trio-size: clamp(22px, 2vw, 30px);
+  --icon-trio-gap: clamp(12px, 1.5vw, 20px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--icon-trio-gap);
+}
+
+.icon-trio__union {
+  display: block;
+  height: var(--icon-trio-size);
+  width: auto;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.icon-trio__ventures {
+  display: block;
+  height: var(--icon-trio-size);
+  width: auto;
+  flex-shrink: 0;
+  will-change: opacity;
+}
+
+.icon-trio__smile {
+  display: block;
+  height: var(--icon-trio-size);
+  width: auto;
+  flex-shrink: 0;
+  will-change: transform;
+}
