@@ -35,6 +35,23 @@ function ResetIcon() {
   );
 }
 
+function CopyIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="9" width="13" height="13" rx="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 // ─── Platform toggle (Web / Mobile) ──────────────────────────────────────────
 
 function PlatformToggle({
@@ -290,11 +307,50 @@ export function ControlsSidebar({
   const [lastChangedKey, setLastChangedKey] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
+  // true when the code block is scrolled into view inside the sidebar
+  const [isCodeVisible, setIsCodeVisible] = useState(false);
+  const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const codeRef   = useRef<HTMLDivElement>(null);
+
+
+  //  pass `root: scrollRef.current` so it measures against the sidebar viewport, not the full browser viewport 
+  //  (without this, the observer fires too early)
+  useEffect(() => {
+    const code   = codeRef.current;
+    const scroll = scrollRef.current;
+    if (!code || !scroll) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsCodeVisible(entry.isIntersecting),
+      { root: scroll, threshold: 0.5 },
+    );
+    observer.observe(code);
+    return () => observer.disconnect();
+  }, []);
+
   function handleParamChange(key: string, value: number) {
     clearTimeout(timerRef.current);
     setLastChangedKey(key);
     timerRef.current = setTimeout(() => setLastChangedKey(null), 1500);
     onParamChange(key, value);
+  }
+
+  function handleSeeCode() {
+    codeRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function handleCopyCode() {
+    const raw = getRawCode(animation, state);
+    const done = () => {
+      setCopyState("copied");
+      setTimeout(() => setCopyState("idle"), 1700);
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(raw).then(done).catch(done);
+    } else {
+      done();
+    }
   }
 
   const highlightedCode = buildHighlightedCode(animation, state, lastChangedKey);
@@ -321,7 +377,7 @@ export function ControlsSidebar({
           </button>
         </div>
 
-        {/* ── Platform toggle ── */}
+        {/*  Platform toggle  */}
         <div className="border-b border-white/10 p-5">
           <PlatformToggle
             frameworks={animation.frameworks}
@@ -332,6 +388,7 @@ export function ControlsSidebar({
 
         {/* Scrollable area: sliders + code block  */}
         <div
+          ref={scrollRef}
           className="flex-1 overflow-y-auto"
           style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.12) transparent" }}
         >
@@ -350,7 +407,7 @@ export function ControlsSidebar({
           )}
 
           {/* ── Code block ── */}
-          <div className="border-t border-white/10 p-5">
+          <div ref={codeRef} className="border-t border-white/10 p-5">
             <span className="mb-3 block font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-white">
               Code
             </span>
@@ -363,6 +420,26 @@ export function ControlsSidebar({
             </p>
           </div>
 
+        </div>
+
+        {/*  Primary action button (pinned outside the scroll area)  */}
+        <div className="border-t border-white/10 p-4">
+          <button
+            type="button"
+            onClick={isCodeVisible ? handleCopyCode : handleSeeCode}
+            className={`flex w-full items-center justify-center gap-2.5 rounded-md px-5 py-4 text-[14px] font-semibold tracking-[-0.005em] transition-all ${
+              copyState === "copied"
+                ? "bg-[rgba(74,222,128,0.14)] text-[#4ade80] shadow-[inset_0_0_0_1px_rgba(74,222,128,0.4)]"
+                : "bg-white text-black hover:bg-[#d0d2cc]"
+            }`}
+          >
+            {copyState === "copied" ? <CheckIcon /> : <CopyIcon />}
+            {copyState === "copied"
+              ? "Copied"
+              : isCodeVisible
+                ? "Copy the code"
+                : "See the code"}
+          </button>
         </div>
 
       </div>
