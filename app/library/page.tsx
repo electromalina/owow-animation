@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { animations } from "@/src/data/animations";
+import SearchButton from "@/src/components/SearchButton";
 
 function SearchIcon() {
   return (
@@ -53,13 +54,7 @@ export default function LibraryPage() {
             className="w-full bg-transparent outline-none placeholder:text-zinc-500"
           />
         </label>
-        <button
-          type="button"
-          className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-medium text-black transition hover:bg-zinc-200"
-        >
-          <FilterIcon />
-          Filters
-        </button>
+        <SearchButton />
       </div>
 
       <section className="grid gap-x-8 gap-y-10 md:grid-cols-2">
