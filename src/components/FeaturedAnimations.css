@@ -1,0 +1,200 @@
+.featured-animations {
+  --featured-bg: #0d0d0d;
+  --featured-accent: #feb800;
+  --featured-font: "PP Neue Montreal", system-ui, sans-serif;
+  --featured-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
+
+  position: relative;
+  z-index: 2;
+  background: var(--featured-bg);
+  color: #fff;
+}
+
+.featured-animations__pin {
+  min-height: 100svh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(48px, 8vh, 96px) 0 clamp(40px, 6vh, 72px);
+  overflow: hidden;
+}
+
+.featured-animations__header {
+  flex-shrink: 0;
+  padding: 0 clamp(20px, 6vw, 131px) clamp(32px, 4vh, 56px);
+  max-width: 1400px;
+}
+
+.featured-animations__title {
+  margin: 0 0 clamp(12px, 1.5vh, 20px);
+  font-family: var(--featured-font);
+  font-size: clamp(2.25rem, 5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.featured-animations__title-light {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.featured-animations__title-strong {
+  font-weight: 500;
+}
+
+.featured-animations__subtitle {
+  margin: 0;
+  font-family: var(--featured-mono);
+  font-size: clamp(11px, 1vw, 14px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.featured-animations__viewport {
+  width: 100%;
+  overflow: visible;
+}
+
+.featured-animations__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: clamp(16px, 2vw, 24px);
+  width: max-content;
+  padding: 0 clamp(20px, 6vw, 131px);
+  will-change: transform;
+}
+
+.featured-animations__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(280px, 42vw, 520px);
+  min-height: clamp(360px, 52vh, 520px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.5vw, 28px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a1a1a;
+}
+
+.featured-animations__tag {
+  align-self: flex-start;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  font-family: var(--featured-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.featured-animations__card-title {
+  margin: clamp(14px, 2vh, 20px) 0 0;
+  font-family: var(--featured-font);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.featured-animations__preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: clamp(16px, 2vh, 24px) 0;
+  min-height: 140px;
+}
+
+.featured-animations__dot-demo {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featured-animations__dot-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+}
+
+.featured-animations__dot-core {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+}
+
+.featured-animations__copy-block {
+  margin: 0;
+  max-width: 92%;
+  font-family: var(--featured-mono);
+  font-size: clamp(10px, 0.85vw, 12px);
+  line-height: 1.55;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+.featured-animations__details {
+  align-self: flex-end;
+  margin-top: auto;
+  font-family: var(--featured-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.featured-animations__details:hover {
+  color: #fff;
+}
+
+.featured-animations__card--enter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #141414;
+}
+
+.featured-animations__enter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--featured-font);
+  font-size: clamp(1.1rem, 1.8vw, 22px);
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.featured-animations__enter-link:hover {
+  color: var(--featured-accent);
+}
+
+.featured-animations__enter-arrow {
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .featured-animations__card {
+    width: min(88vw, 340px);
+    min-height: 380px;
+  }
+}
