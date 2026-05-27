@@ -20,14 +20,11 @@
 .showcase__title {
   margin: 0 0 clamp(12px, 1.5vh, 20px);
   font-family: var(--showcase-font);
-  font-size: clamp(2.25rem, 5vw, 72px);
+  font-size: clamp(1.75rem, 3.5vw, 48px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   font-weight: 500;
-}
-
-.showcase__title-light {
-  font-weight: 400;
+  color: #fff;
 }
 
 .showcase__subtitle {
@@ -36,7 +33,7 @@
   font-size: clamp(11px, 1vw, 14px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(226, 226, 226, 0.88);
 }
 
 .showcase__carousel-wrap {

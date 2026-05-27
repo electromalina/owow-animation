@@ -104,10 +104,10 @@ export function Showcase() {
   return (
     <section className="showcase" aria-label="Showcase">
       <header className="showcase__header">
-        <h2 className="showcase__title">
-          <span className="showcase__title-light">[ Showcase ]</span>
-        </h2>
-        <p className="showcase__subtitle">A GLIMPSE INTO THE ATLAS LIBRARY.</p>
+        <h2 className="showcase__title">Showcase</h2>
+        <p className="showcase__subtitle">
+          [A GLIMPSE INTO THE ATLAS LIBRARY.]
+        </p>
       </header>
 
       <div className="showcase__carousel-wrap">

@@ -2,6 +2,8 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { FeaturedScrollDemo } from "./FeaturedScrollDemo.jsx";
+import { MagneticButton } from "./MagneticButton.jsx";
+import { ParticleTextDemo } from "./ParticleTextDemo.jsx";
 import "./FeaturedAnimations.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,17 +17,15 @@ const FEATURED_CARDS = [
   },
   {
     id: "staggered",
-    tag: "Typo / GSAP",
-    title: "Staggered Text",
-    variant: "dot",
+    tag: "Magnetic / GSAP",
+    title: "Magnetic Button",
+    variant: "hover-button",
   },
   {
     id: "atlas",
-    tag: "Web / GSAP",
+    tag: "Particles / Canvas",
     title: "Atlas Library",
-    variant: "copy",
-    copy:
-      "[THE CENTRALIZED ANIMATION LIBRARY FOR OWOW. ENGINEERED TO CAPTIVATE CLIENTS, EMPOWER DESIGNERS, AND ACCELERATE OUR WIZKIDS.]",
+    variant: "particle-text",
   },
   {
     id: "enter",
@@ -120,14 +120,15 @@ export function FeaturedAnimations() {
                   >
                     {card.variant === "scroll-demo" ? (
                       <FeaturedScrollDemo />
-                    ) : card.variant === "dot" ? (
-                      <div className="featured-animations__dot-demo">
-                        <span className="featured-animations__dot-ring" />
-                        <span className="featured-animations__dot-core" />
+                    ) : card.variant === "hover-button" ? (
+                      <div className="featured-animations__hover-demo">
+                        <MagneticButton aria-label="Magnetic button demo">
+                          Check The Library
+                        </MagneticButton>
                       </div>
-                    ) : (
-                      <p className="featured-animations__copy-block">{card.copy}</p>
-                    )}
+                    ) : card.variant === "particle-text" ? (
+                      <ParticleTextDemo />
+                    ) : null}
                   </div>
 
                   <a href="#details" className="featured-animations__details">

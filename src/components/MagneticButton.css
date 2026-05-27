@@ -1,0 +1,97 @@
+.mag-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.mag-btn-motion {
+  will-change: transform;
+}
+
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 210px;
+  padding: 18px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-family: "PP Neue Montreal Mono", ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-radius 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.45s ease,
+    color 0.4s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.mag-wrap--hover .mag-btn {
+  border-radius: 9999px;
+  background-color: #feb800;
+  color: #000;
+  border-color: #feb800;
+  box-shadow: 0 10px 36px rgba(254, 184, 0, 0.28);
+}
+
+.mag-btn-scale {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mag-wrap--hover .mag-btn-scale {
+  transform: scale(1.02);
+}
+
+.mag-btn__text {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 1.2em;
+  will-change: transform;
+}
+
+.mag-btn__label {
+  grid-area: 1 / 1;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.mag-btn__label--hover {
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.mag-btn__label--hidden {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+.mag-btn__label:not(.mag-btn__label--hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mag-confetti {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  margin: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mag-btn,
+  .mag-btn__label,
+  .mag-btn-scale {
+    transition: none;
+  }
+}

@@ -140,6 +140,115 @@
   box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
 }
 
+.featured-animations__hover-demo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featured-animations__hover-button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-family: var(--featured-font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  overflow: hidden;
+  transform: translateY(0) scale(1);
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.featured-animations__hover-glow {
+  position: absolute;
+  inset: -40% -20%;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(254, 184, 0, 0.3) 0%, transparent 68%);
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.featured-animations__hover-shine {
+  position: absolute;
+  top: 0;
+  left: -45%;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 48%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  opacity: 0;
+}
+
+.featured-animations__hover-label,
+.featured-animations__hover-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.featured-animations__hover-icon {
+  display: inline-block;
+  transition: transform 0.35s ease;
+}
+
+.featured-animations__hover-button:hover,
+.featured-animations__hover-button:focus-visible {
+  border-color: rgba(254, 184, 0, 0.8);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px) scale(1.02);
+  outline: none;
+}
+
+.featured-animations__hover-button:hover .featured-animations__hover-glow,
+.featured-animations__hover-button:focus-visible .featured-animations__hover-glow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.featured-animations__hover-button:hover .featured-animations__hover-shine,
+.featured-animations__hover-button:focus-visible .featured-animations__hover-shine {
+  opacity: 1;
+  animation: featured-hover-shine 0.9s ease;
+}
+
+.featured-animations__hover-button:hover .featured-animations__hover-icon,
+.featured-animations__hover-button:focus-visible .featured-animations__hover-icon {
+  transform: translateX(4px);
+}
+
+.featured-animations__hover-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+@keyframes featured-hover-shine {
+  from {
+    left: -45%;
+  }
+  to {
+    left: 120%;
+  }
+}
+
 .featured-animations__copy-block {
   margin: 0;
   max-width: 92%;
