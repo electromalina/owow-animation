@@ -1,9 +1,9 @@
-import { animation2 } from "@/src/animations/animation-2";
-import { animation3 } from "@/src/animations/animation-3";
-import { animation4 } from "@/src/animations/animation-4";
 import { animation5 } from "@/src/animations/animation-5";
 import { animation6 } from "@/src/animations/animation-6";
+import { magneticButton } from "@/src/animations/magnetic-button";
 import { magneticCursor } from "@/src/animations/magnetic-cursor";
+import { particleText } from "@/src/animations/particle-text";
+import { scrollVelocity } from "@/src/animations/scroll-velocity";
 import type {
   Animation,
   AnimationMeta,
@@ -14,9 +14,9 @@ import type {
 
 const modules: AnimationModule[] = [
   magneticCursor,
-  animation2,
-  animation3,
-  animation4,
+  scrollVelocity,
+  magneticButton,
+  particleText,
   animation5,
   animation6,
 ];

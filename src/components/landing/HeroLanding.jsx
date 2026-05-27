@@ -121,6 +121,8 @@ export function HeroLanding({ headerAnchorRef }) {
         aria-hidden
       />
 
+      <div className="hero-landing__header-spacer" aria-hidden />
+
       <header className="hero-landing__header">
         <Link href="/" className="hero-landing__logo" aria-label="owow home">
           <img src={LANDING_ASSETS.logo} alt="owow" width={121} height={26} />

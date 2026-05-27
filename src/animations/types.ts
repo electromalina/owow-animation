@@ -53,6 +53,8 @@ export type AnimationState = {
 export type DemoProps = {
   platform: Platform;
   params: ControlValues;
+  /** When true, skip the library preview shell (used on the landing page). */
+  embedded?: boolean;
 };
 
 export type AnimationModule = {
