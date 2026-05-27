@@ -1,0 +1,95 @@
+.featured-cursor-trail {
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  min-height: clamp(180px, 24vh, 220px);
+  border-radius: 12px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.featured-cursor-trail__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.featured-cursor-trail__particle {
+  position: absolute;
+  display: block;
+  margin: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  will-change: transform, opacity;
+}
+
+.featured-cursor-trail__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.featured-cursor-trail__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: "PP Neue Montreal Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.featured-cursor-trail:hover .featured-cursor-trail__hint,
+.featured-cursor-trail:focus-within .featured-cursor-trail__hint {
+  opacity: 0;
+}
+
+.featured-cursor-trail__legend {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transform: translate(-50%, -50%);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.featured-cursor-trail__legend-img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.featured-animations__preview:has(.featured-cursor-trail) {
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: clamp(180px, 24vh, 220px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-cursor-trail {
+    cursor: default;
+  }
+
+  .featured-cursor-trail__legend {
+    opacity: 0.35;
+  }
+}

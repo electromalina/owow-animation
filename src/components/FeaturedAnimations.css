@@ -49,6 +49,8 @@
 .featured-animations__viewport {
   width: 100%;
   overflow: visible;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .featured-animations__track {
@@ -59,6 +61,7 @@
   width: max-content;
   padding: 0 clamp(20px, 6vw, 131px);
   will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .featured-animations__card {
@@ -74,6 +77,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--featured-card-bg);
   overflow: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
 
 .featured-animations__card-title {
