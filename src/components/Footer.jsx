@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import "./Footer.css";
 
 const MARQUEE_SEGMENT = (
@@ -13,6 +14,12 @@ const MOVING_WORDS = ["MOVING", "DEVELOPING", "ACTING", "DESIGNING", "ANIMATING"
 const SCRAMBLE_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const SCRAMBLE_TICK_MS = 45;
 const SCRAMBLE_TICKS = 8;
+const CURSOR_TRAIL_ICONS = [
+  "/footer/cursor-ai.png",
+  "/footer/cursor-ventures.png",
+  "/footer/cursor-studio.png",
+];
+const TRAIL_FIXED_SPACING = 70;
 
 function getScrambledWord(targetWord, revealCount) {
   return targetWord
@@ -27,8 +34,119 @@ function getScrambledWord(targetWord, revealCount) {
 
 export function Footer() {
   const [animatedWord, setAnimatedWord] = useState(MOVING_WORDS[0]);
+  const [isTrailActive, setIsTrailActive] = useState(false);
   const wordIndexRef = useRef(0);
   const scrambleIntervalRef = useRef(null);
+  const trailLayerRef = useRef(null);
+  const lastPointRef = useRef({ x: 0, y: 0, hasValue: false });
+  const distanceRemainderRef = useRef(0);
+  const spawnParityRef = useRef(0);
+
+  const clearTrail = useCallback(() => {
+    const trailLayer = trailLayerRef.current;
+    if (!trailLayer) return;
+    trailLayer.querySelectorAll(".site-footer__cursor-trail-item").forEach((node) => {
+      gsap.killTweensOf(node);
+      node.remove();
+    });
+  }, []);
+
+  const spawnTrailIcon = useCallback((x, y) => {
+    const trailLayer = trailLayerRef.current;
+    if (!trailLayer) return;
+
+    const icon = document.createElement("img");
+    icon.className = "site-footer__cursor-trail-item";
+    icon.alt = "";
+    icon.src = CURSOR_TRAIL_ICONS[Math.floor(Math.random() * CURSOR_TRAIL_ICONS.length)];
+    icon.style.left = `${x}px`;
+    icon.style.top = `${y}px`;
+    icon.style.rotate = `${gsap.utils.random(-50, 50)}deg`;
+    trailLayer.appendChild(icon);
+
+    gsap.fromTo(
+      icon,
+      { xPercent: -50, yPercent: -50, scale: 0.35, opacity: 0, filter: "blur(1.5px)" },
+      {
+        scale: gsap.utils.random(1, 1.35),
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.1,
+        ease: "power3.out",
+      },
+    );
+
+    gsap.to(icon, {
+      x: gsap.utils.random(-70, 70),
+      y: gsap.utils.random(170, 300),
+      rotation: gsap.utils.random(-120, 120),
+      opacity: 0,
+      scale: gsap.utils.random(0.7, 1.45),
+      duration: gsap.utils.random(0.75, 1.2),
+      ease: "power2.in",
+      delay: 0.03,
+      onComplete: () => icon.remove(),
+    });
+  }, []);
+
+  const handleCtaMouseMove = useCallback(
+    (event) => {
+      const ctaBounds = event.currentTarget.getBoundingClientRect();
+      const x = event.clientX - ctaBounds.left;
+      const y = event.clientY - ctaBounds.top;
+
+      if (!lastPointRef.current.hasValue) {
+        lastPointRef.current = { x, y, hasValue: true };
+        spawnTrailIcon(x, y);
+        return;
+      }
+
+      const startX = lastPointRef.current.x;
+      const startY = lastPointRef.current.y;
+      const dx = x - startX;
+      const dy = y - startY;
+      const distance = Math.hypot(dx, dy);
+      if (distance === 0) return;
+
+      let remainingDistance = distanceRemainderRef.current + distance;
+      let traveledOnSegment = TRAIL_FIXED_SPACING - distanceRemainderRef.current;
+
+      while (remainingDistance >= TRAIL_FIXED_SPACING) {
+        const progress = traveledOnSegment / distance;
+        const iconX = startX + dx * progress;
+        const iconY = startY + dy * progress;
+        spawnParityRef.current = (spawnParityRef.current + 1) % 2;
+        if (spawnParityRef.current === 0) {
+          spawnTrailIcon(iconX, iconY);
+        }
+
+        remainingDistance -= TRAIL_FIXED_SPACING;
+        traveledOnSegment += TRAIL_FIXED_SPACING;
+      }
+
+      distanceRemainderRef.current = remainingDistance;
+      lastPointRef.current = { x, y, hasValue: true };
+    },
+    [spawnTrailIcon],
+  );
+
+  const handleCtaMouseEnter = useCallback(() => {
+    setIsTrailActive(true);
+    lastPointRef.current = { x: 0, y: 0, hasValue: false };
+    distanceRemainderRef.current = 0;
+    spawnParityRef.current = 0;
+  }, []);
+
+  const handleCtaMouseLeave = useCallback(() => {
+    setIsTrailActive(false);
+  }, []);
+
+  useEffect(
+    () => () => {
+      clearTrail();
+    },
+    [clearTrail],
+  );
 
   const handleAccentHover = () => {
     if (scrambleIntervalRef.current) {
@@ -73,7 +191,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="site-footer__cta-block">
+      <div
+        className={`site-footer__cta-block${isTrailActive ? " site-footer__cta-block--trail" : ""}`}
+        onMouseMove={handleCtaMouseMove}
+        onMouseEnter={handleCtaMouseEnter}
+        onMouseLeave={handleCtaMouseLeave}
+      >
+        <div ref={trailLayerRef} className="site-footer__cursor-trail-layer" aria-hidden />
         <h2 className="site-footer__headline">
           <span className="site-footer__headline-line">STOP REBUILDING,</span>
           <span

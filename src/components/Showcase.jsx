@@ -8,25 +8,24 @@ const SHOWCASE_SLIDES = [
     title: "Feadship",
     caseTag: "2024 CASE",
     exploreHref: "#dropstore",
-    videoSrc: "/showcase/showcase-preview-2.mp4",
-    fallbackVideoSrc: "/showcase/showcase-preview-2.mov",
+    videoSrc: "/showcase/showcase-preview.webm",
+    videoType: "video/webm",
   },
   {
     id: "circl",
     title: "React Native Reanimated",
     caseTag: "2023 CASE",
     exploreHref: "#circl",
-    videoSrc: "/showcase/showcase-preview-3b.m4v",
-    videoType: "video/x-m4v",
-    fallbackVideoSrc: "/showcase/showcase-preview-3.mov",
+    videoSrc: "/showcase/showcase-preview-3.webm",
+    videoType: "video/webm",
   },
   {
     id: "new-horizon",
     title: "GSAP",
     caseTag: "2026 CASE",
     exploreHref: "#new-horizon",
-    videoSrc: "/showcase/showcase-preview-4.mp4",
-    fallbackVideoSrc: "/showcase/showcase-preview-4.mov",
+    videoSrc: "/showcase/showcase-preview-4.webm",
+    videoType: "video/webm",
   },
 ];
 
@@ -169,9 +168,6 @@ export function Showcase() {
                     aria-label={`${slide.title} preview`}
                   >
                     <source src={slide.videoSrc} type={slide.videoType || "video/mp4"} />
-                    {slide.fallbackVideoSrc ? (
-                      <source src={slide.fallbackVideoSrc} type="video/quicktime" />
-                    ) : null}
                   </video>
                 </div>
               </article>

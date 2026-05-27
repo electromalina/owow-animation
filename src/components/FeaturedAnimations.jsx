@@ -11,12 +11,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURED_CARDS = [
   {
-    id: "scroll-velocity",
-    tag: "Scroll / GSAP",
-    title: "Scroll Velocity",
-    variant: "scroll-demo",
-  },
-  {
     id: "staggered",
     tag: "Magnetic / GSAP",
     title: "Magnetic Button",
@@ -25,7 +19,7 @@ const FEATURED_CARDS = [
   {
     id: "atlas",
     tag: "Particles / Canvas",
-    title: "Atlas Library",
+    title: "Particle Text",
     variant: "particle-text",
   },
   {
@@ -33,6 +27,12 @@ const FEATURED_CARDS = [
     tag: "Cursor / GSAP",
     title: "Cursor Trail",
     variant: "cursor-trail",
+  },
+  {
+    id: "scroll-velocity",
+    tag: "Scroll / GSAP",
+    title: "Scroll Velocity",
+    variant: "scroll-demo",
   },
   {
     id: "enter",
