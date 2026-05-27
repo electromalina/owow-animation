@@ -31,20 +31,27 @@ const ICONS = [
 
 const HOLD = 1.4;
 const TRANSITION = 0.7;
-const REVEAL_RADIUS = 22;
 
-function revealIcon(slide, clipId) {
-  const circle = slide.querySelector(`[data-clip="${clipId}"]`);
-  const path = slide.querySelector(".featured-union-icons__path");
-  if (!circle || !path) return gsap.timeline();
+function revealIcon(slide) {
+  const paths = slide.querySelectorAll(".featured-union-icons__path");
+  if (!paths.length) return gsap.timeline();
 
-  gsap.set(circle, { attr: { r: 0 } });
-  gsap.set(path, { scale: 0.92, svgOrigin: "15 15", transformOrigin: "50% 50%" });
+  gsap.set(paths, { strokeDashoffset: 1 });
+  gsap.set(slide, { rotate: 0 });
 
   return gsap
     .timeline()
-    .to(circle, { attr: { r: REVEAL_RADIUS }, duration: 0.95, ease: "power2.out" })
-    .to(path, { scale: 1, duration: 0.55, ease: "back.out(1.6)" }, "<0.15");
+    .to(slide, { scale: 1, duration: 0.45, ease: "power2.out" }, 0)
+    .to(
+      paths,
+      {
+        strokeDashoffset: 0,
+        duration: 0.9,
+        ease: "power2.out",
+        stagger: 0.06,
+      },
+      0
+    );
 }
 
 export function FeaturedUnionIconsDemo() {
@@ -96,8 +103,7 @@ export function FeaturedUnionIconsDemo() {
         ease: "sine.inOut",
       });
 
-      const firstClip = slides[0]?.dataset.clip;
-      if (firstClip) revealIcon(slides[0], firstClip);
+      revealIcon(slides[0]);
 
       if (prefersReduced) return;
 
@@ -107,7 +113,7 @@ export function FeaturedUnionIconsDemo() {
         const next = slides[(index + 1) % slides.length];
         const dot = dots[index];
         const nextDot = dots[(index + 1) % dots.length];
-        const nextClip = next?.dataset.clip;
+        const nextPaths = next.querySelectorAll(".featured-union-icons__path");
 
         tl.to(
           slide,
@@ -135,9 +141,8 @@ export function FeaturedUnionIconsDemo() {
           "<0.1"
         );
 
-        if (nextClip) {
-          tl.add(revealIcon(next, nextClip), "<0.08");
-        }
+        tl.set(nextPaths, { strokeDashoffset: 1 }, "<");
+        tl.add(revealIcon(next), "<0.05");
 
         tl.to(
           nextDot,
@@ -182,26 +187,14 @@ export function FeaturedUnionIconsDemo() {
               data-clip={clipId}
             >
               <svg viewBox={icon.viewBox} className="featured-union-icons__svg">
-                <defs>
-                  <clipPath id={clipId}>
-                    <circle
-                      className="featured-union-icons__reveal"
-                      data-clip={clipId}
-                      cx="15"
-                      cy="15"
-                      r="0"
-                    />
-                  </clipPath>
-                </defs>
-                <g clipPath={`url(#${clipId})`}>
-                  {icon.paths.map((d, pathIndex) => (
-                    <path
-                      key={`${icon.id}-${pathIndex}`}
-                      className="featured-union-icons__path"
-                      d={d}
-                    />
-                  ))}
-                </g>
+                {icon.paths.map((d, pathIndex) => (
+                  <path
+                    key={`${icon.id}-${pathIndex}`}
+                    className="featured-union-icons__path"
+                    d={d}
+                    pathLength="1"
+                  />
+                ))}
               </svg>
             </div>
           );

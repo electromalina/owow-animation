@@ -118,7 +118,6 @@ export function FeaturedAnimations() {
 
               return (
                 <article key={card.id} className="featured-animations__card">
-                  <span className="featured-animations__tag">{card.tag}</span>
                   <h3 className="featured-animations__card-title">{card.title}</h3>
 
                   <div

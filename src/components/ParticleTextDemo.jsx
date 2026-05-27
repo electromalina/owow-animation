@@ -3,7 +3,7 @@ import "./ParticleTextDemo.css";
 
 const CONFIG = {
   text: "Motion",
-  theme: "gold",
+  theme: "white",
   chaos: 3.1,
   ambientBrownian: 3.0,
   repulsionStrength: 9,
