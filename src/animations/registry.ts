@@ -3,6 +3,7 @@ import { animation3 } from "@/src/animations/animation-3";
 import { animation4 } from "@/src/animations/animation-4";
 import { animation5 } from "@/src/animations/animation-5";
 import { animation6 } from "@/src/animations/animation-6";
+import { blurCascade } from "@/src/animations/blur-cascade";
 import { magneticCursor } from "@/src/animations/magnetic-cursor";
 import type {
   Animation,
@@ -14,6 +15,7 @@ import type {
 
 const modules: AnimationModule[] = [
   magneticCursor,
+  blurCascade,
   animation2,
   animation3,
   animation4,

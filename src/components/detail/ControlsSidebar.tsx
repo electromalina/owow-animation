@@ -211,6 +211,151 @@ function SliderRow({
   );
 }
 
+// ─── Easing grid (renders when param.type === "enum") ────────────────────────
+
+// Mathematical easing functions — used to animate the dot along the SVG curve
+// when a card is selected, so you can actually see how the easing feels.
+const EASING_FNS: Record<string, (t: number) => number> = {
+  linear:        (t) => t,
+  "power1.out":  (t) => 1 - Math.pow(1 - t, 2),
+  "power2.out":  (t) => 1 - Math.pow(1 - t, 3),
+  "power3.out":  (t) => 1 - Math.pow(1 - t, 4),
+  "expo.out":    (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+  "elastic.out": (t) => {
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * ((2 * Math.PI) / 3)) + 1;
+  },
+};
+
+function EasingCard({
+  option,
+  isActive,
+  dotDuration,
+  onSelect,
+}: {
+  option: { value: string; curve?: string };
+  isActive: boolean;
+  dotDuration: number;
+  onSelect: () => void;
+}) {
+  const dotRef = useRef<SVGCircleElement>(null);
+  const rafRef = useRef<number | undefined>(undefined);
+
+  // Animate a dot along the curve path when this card is selected
+  function animateDot() {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    const dot = dotRef.current;
+    if (!dot) return;
+    const easeFn = EASING_FNS[option.value] ?? ((t) => t);
+    const durMs = dotDuration * 1000;
+    const t0 = performance.now();
+
+    function frame(now: number) {
+      const t = Math.min((now - t0) / durMs, 1);
+      const et = easeFn(t);
+      dot!.setAttribute("cx", (t * 60).toFixed(2));
+      dot!.setAttribute("cy", (18 - et * 18).toFixed(2));
+      dot!.setAttribute("opacity", "1");
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(frame);
+      } else {
+        rafRef.current = undefined;
+        setTimeout(() => dot!.setAttribute("opacity", "0"), 600);
+      }
+    }
+    rafRef.current = requestAnimationFrame(frame);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        onSelect();
+        animateDot();
+      }}
+      className={`flex flex-col gap-1.5 rounded-md border px-2.5 py-2 text-left transition-all ${
+        isActive
+          ? "border-white bg-white text-black"
+          : "border-white/10 bg-transparent text-white/60 hover:border-white/20 hover:text-white"
+      }`}
+    >
+      <span className="font-[family-name:var(--font-mono)] text-[10px] tracking-[0.03em]">
+        {option.value}
+      </span>
+      {option.curve && (
+        // viewBox "-8" top padding handles elastic.out overshoot above y=0
+        <svg viewBox="0 -8 60 28" className="w-full" style={{ height: 22, overflow: "visible" }}>
+          <path
+            d={option.curve}
+            stroke={isActive ? "black" : "white"}
+            strokeWidth={1.5}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle
+            ref={dotRef}
+            r={2.5}
+            opacity={0}
+            fill={isActive ? "black" : "white"}
+          />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+function EasingGrid({
+  param: p,
+  value,
+  dotDuration,
+  isFirst,
+  onParamChange,
+}: {
+  param: AnimationParam;
+  value: number;
+  dotDuration: number;
+  isFirst: boolean;
+  onParamChange: (key: string, value: number) => void;
+}) {
+  const activeOption = p.options?.[Math.round(value)];
+
+  return (
+    <div className={!isFirst ? "mt-4 border-t border-white/10 pt-4" : ""}>
+      {/* label row — matches the SliderRow label style */}
+      <div className="mb-3 flex items-baseline justify-between">
+        <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.10em] text-white">
+          {p.label}
+        </span>
+        {activeOption && (
+          <span className="font-[family-name:var(--font-mono)] text-[11px] text-white/40">
+            {activeOption.value}
+          </span>
+        )}
+      </div>
+      {/* 2-column card grid */}
+      <div className="grid grid-cols-2 gap-1.5">
+        {(p.options ?? []).map((opt, i) => (
+          <EasingCard
+            key={opt.value}
+            option={opt}
+            isActive={Math.round(value) === i}
+            dotDuration={dotDuration}
+            onSelect={() => onParamChange(p.key, i)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function ControlsSidebar({
@@ -314,15 +459,27 @@ export function ControlsSidebar({
         >
           {animation.params.length > 0 && (
             <div className="p-5">
-              {animation.params.map((p, i) => (
-                <SliderRow
-                  key={p.key}
-                  param={p}
-                  value={state.params[p.key] ?? p.defaultValue}
-                  isFirst={i === 0}
-                  onParamChange={handleParamChange}
-                />
-              ))}
+              {animation.params.map((p, i) =>
+                p.type === "enum" ? (
+                  <EasingGrid
+                    key={p.key}
+                    param={p}
+                    value={state.params[p.key] ?? p.defaultValue}
+                    // pass duration so the dot animation matches the actual animation speed
+                    dotDuration={typeof state.params.duration === "number" ? state.params.duration : 0.8}
+                    isFirst={i === 0}
+                    onParamChange={handleParamChange}
+                  />
+                ) : (
+                  <SliderRow
+                    key={p.key}
+                    param={p}
+                    value={state.params[p.key] ?? p.defaultValue}
+                    isFirst={i === 0}
+                    onParamChange={handleParamChange}
+                  />
+                ),
+              )}
             </div>
           )}
 
