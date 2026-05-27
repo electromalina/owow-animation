@@ -11,8 +11,6 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-const SILVER_GLOBE_SRC = "/landing/silver.svg";
-
 gsap.registerPlugin(ScrollTrigger);
 
 /** Figma: node 22:4087 header icon vs node 19:4063 about globe */
@@ -38,6 +36,7 @@ const REVEAL_SHARE = 0.48;
 /** Fade + blur handoff into Motion Categories (scroll progress 0→1 on About section) */
 const CLUSTER_FADE_START = 0.82;
 const CLUSTER_FADE_END = 1;
+/** Peak blur mid-fade for a soft “vignette into next section” mood (px) */
 const CLUSTER_BLUR_MAX = 13;
 
 function getSilverBaseWidth() {
@@ -125,13 +124,14 @@ export function ScrollIconSequence({ headerAnchorRef }) {
     CLUSTER_FADE_START,
     CLUSTER_FADE_END,
     0,
-    1,
+    1
   );
   const clusterOpacity = 1 - fadeT;
   const blurT = prefersReducedMotion
     ? 0
     : Math.sin(Math.PI * gsap.utils.clamp(0, 1, fadeT));
   const clusterBlurPx = CLUSTER_BLUR_MAX * blurT;
+  /** Subtle pull-back alongside fade */
   const clusterScaleHandoff = prefersReducedMotion ? 1 : 1 - fadeT * 0.04;
 
   const applyWordLight = (lightProgressVal) => {
@@ -283,7 +283,7 @@ export function ScrollIconSequence({ headerAnchorRef }) {
         }}
       >
         <img
-          src={SILVER_GLOBE_SRC}
+          src={"/landing/silver.svg"}
           alt=""
           className="scroll-icons__silver-fixed"
           style={{

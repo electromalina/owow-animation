@@ -3,8 +3,9 @@
   --hero-text: #fff;
   --hero-muted: rgba(255, 255, 255, 0.5);
   --hero-accent: #feb800;
-  --hero-font: var(--font-heading), var(--font-body), system-ui, sans-serif;
-  --hero-font-mono: var(--font-mono), ui-monospace, monospace;
+  --hero-font: "PP Neue Montreal", system-ui, sans-serif;
+  --hero-font-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
+  /* Top inset; synced with fixed header (tighter = bar sits higher) */
   --hero-padding-top: clamp(32px, 3.75vw, 50px);
 
   position: relative;
@@ -28,9 +29,11 @@
   z-index: -1;
 }
 
+/** In-flow slot so hero content stays below where the fixed bar sits */
 .hero-landing__header-spacer {
   flex-shrink: 0;
   width: 100%;
+  /* ~ row min-height + silver anchor vertical offset */
   min-height: 78px;
   pointer-events: none;
 }
@@ -308,6 +311,7 @@
 
 @media (max-width: 900px) {
   .hero-landing__header-spacer {
+    /* Two-row header: logo/actions + centered silver anchor */
     min-height: 112px;
   }
 
@@ -326,7 +330,7 @@
     grid-area: center;
     grid-column: 1 / -1;
     justify-self: center;
-    margin-top: 18px;
+    margin-top: 11px;
   }
 
   .hero-landing__header-actions {

@@ -7,9 +7,6 @@
 
   position: relative;
   z-index: 2;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
   background: var(--featured-bg);
   color: #fff;
 }
@@ -26,10 +23,8 @@
 
 .featured-animations__header {
   flex-shrink: 0;
-  width: 100%;
-  max-width: 1400px;
-  margin-inline: auto;
   padding: 0 clamp(20px, 6vw, 131px) clamp(56px, 8vh, 96px);
+  max-width: 1400px;
 }
 
 .featured-animations__title {
@@ -53,8 +48,9 @@
 
 .featured-animations__viewport {
   width: 100%;
-  max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .featured-animations__track {
@@ -65,6 +61,7 @@
   width: max-content;
   padding: 0 clamp(20px, 6vw, 131px);
   will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .featured-animations__card {
@@ -80,6 +77,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--featured-card-bg);
   overflow: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
 
 .featured-animations__card-title {
@@ -89,6 +88,21 @@
   font-size: clamp(1.35rem, 2.2vw, 30px);
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+.featured-animations__preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: clamp(16px, 2vh, 24px) 0;
+  min-height: 140px;
+}
+
+.featured-animations__preview:has(.featured-scroll-demo) {
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: clamp(180px, 24vh, 220px);
 }
 
 .featured-animations__dot-demo {
@@ -113,6 +127,13 @@
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+}
+
+.featured-animations__hover-demo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .featured-animations__hover-button {

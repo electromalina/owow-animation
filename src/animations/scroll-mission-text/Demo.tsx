@@ -72,6 +72,7 @@ export function Demo({ platform, params, embedded }: DemoProps) {
     const segmentCount = Math.max(1, charGroups.length - 1);
 
     function updatePinHeight() {
+      if (!viewport || !pinRoot) return;
       const h = viewport.clientHeight;
       const container = pinRoot.querySelector<HTMLElement>(".sms-demo__container");
       if (container) {

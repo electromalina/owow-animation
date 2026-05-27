@@ -1,4 +1,5 @@
 import { blurCascade } from "@/src/animations/blur-cascade";
+import { cursorTrail } from "@/src/animations/cursor-trail";
 import { hoverPreviewStrip } from "@/src/animations/hover-preview-strip";
 import { magneticButton } from "@/src/animations/magnetic-button";
 import { magneticCursor } from "@/src/animations/magnetic-cursor";
@@ -15,6 +16,7 @@ import type {
 
 const modules: AnimationModule[] = [
   magneticCursor,
+  cursorTrail,
   scrollVelocity,
   scrollMissionText,
   hoverPreviewStrip,

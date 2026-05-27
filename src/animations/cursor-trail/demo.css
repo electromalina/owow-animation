@@ -1,0 +1,98 @@
+.cursor-trail-demo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.cursor-trail-demo--embedded {
+  position: relative;
+  inset: auto;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  margin: clamp(16px, 2vh, 24px) 0;
+  border-radius: 12px;
+}
+
+.cursor-trail-demo__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cursor-trail-demo__particle {
+  position: absolute;
+  display: block;
+  margin: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+.cursor-trail-demo__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cursor-trail-demo__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: "PP Neue Montreal Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.cursor-trail-demo:hover .cursor-trail-demo__hint,
+.cursor-trail-demo:focus-within .cursor-trail-demo__hint {
+  opacity: 0;
+}
+
+.cursor-trail-demo__legend {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transform: translate(-50%, -50%);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.cursor-trail-demo__legend-img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail-demo {
+    cursor: default;
+  }
+
+  .cursor-trail-demo__legend {
+    opacity: 0.35;
+  }
+}

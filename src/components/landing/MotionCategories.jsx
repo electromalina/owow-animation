@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Link from "next/link";
-
 import { scrambleTo } from "@/src/lib/landing/scrambleText.js";
 import "@/src/components/landing/MotionCategories.css";
 
@@ -53,7 +51,7 @@ const CATEGORIES = [
 
 const EXPLORE_CATEGORY = CATEGORIES.find((c) => c.id === "explore");
 const EXPLORE_TITLE = EXPLORE_CATEGORY?.title ?? "Explore more categories";
-const LIBRARY_HREF = "/library";
+const LIBRARY_HREF = "#library";
 const EXPLORE_SCRAMBLE_DURATION = 0.55;
 
 const SCROLL_PER_ITEM = 85;
@@ -348,7 +346,7 @@ export function MotionCategories() {
                         }}
                         className={itemClass}
                       >
-                        <Link
+                        <a
                           href={LIBRARY_HREF}
                           className="motion-categories__explore-cta"
                           aria-label={`${EXPLORE_TITLE} — open animation library`}
@@ -361,7 +359,7 @@ export function MotionCategories() {
                             {cat.title}
                           </h3>
                           <p className="motion-categories__wheel-desc">{cat.body}</p>
-                        </Link>
+                        </a>
                       </article>
                     );
                   }
