@@ -11,6 +11,7 @@
   z-index: 2;
   background: var(--showcase-bg);
   color: #fff;
+  margin-top: clamp(48px, 8vh, 96px);
   padding: clamp(64px, 10vh, 120px) clamp(20px, 6vw, 131px) clamp(72px, 8vh, 100px);
   box-sizing: border-box;
 }
@@ -82,8 +83,16 @@
   aspect-ratio: 16 / 10;
   max-height: min(56vh, 520px);
   border-radius: 10px;
+  overflow: hidden;
   background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 45%, #1f1f1f 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.showcase__preview-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .showcase__footer {

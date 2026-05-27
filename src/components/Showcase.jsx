@@ -4,22 +4,29 @@ import "./Showcase.css";
 
 const SHOWCASE_SLIDES = [
   {
-    id: "studio-therapy",
-    title: "Studio Therapy",
-    caseTag: "2023 CASE",
-    exploreHref: "#studio-therapy",
-  },
-  {
     id: "dropstore",
-    title: "The Dropstore",
+    title: "Feadship",
     caseTag: "2024 CASE",
     exploreHref: "#dropstore",
+    videoSrc: "/showcase/showcase-preview-2.mp4",
+    fallbackVideoSrc: "/showcase/showcase-preview-2.mov",
   },
   {
     id: "circl",
-    title: "CIRCL",
+    title: "React Native Reanimated",
     caseTag: "2023 CASE",
     exploreHref: "#circl",
+    videoSrc: "/showcase/showcase-preview-3b.m4v",
+    videoType: "video/x-m4v",
+    fallbackVideoSrc: "/showcase/showcase-preview-3.mov",
+  },
+  {
+    id: "new-horizon",
+    title: "GSAP",
+    caseTag: "2026 CASE",
+    exploreHref: "#new-horizon",
+    videoSrc: "/showcase/showcase-preview-4.mp4",
+    fallbackVideoSrc: "/showcase/showcase-preview-4.mov",
   },
 ];
 
@@ -132,7 +139,7 @@ export function Showcase() {
       <header className="showcase__header">
         <h2 className="showcase__title">Showcase</h2>
         <p className="showcase__subtitle">
-          [A GLIMPSE INTO THE ATLAS LIBRARY.]
+          [OWOW Projects]
         </p>
       </header>
 
@@ -151,7 +158,22 @@ export function Showcase() {
                 className={`showcase__slide${i === virtualIndex ? " showcase__slide--active" : ""}`}
                 aria-hidden={i !== virtualIndex}
               >
-                <div className="showcase__placeholder" />
+                <div className="showcase__placeholder">
+                  <video
+                    className="showcase__preview-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    aria-label={`${slide.title} preview`}
+                  >
+                    <source src={slide.videoSrc} type={slide.videoType || "video/mp4"} />
+                    {slide.fallbackVideoSrc ? (
+                      <source src={slide.fallbackVideoSrc} type="video/quicktime" />
+                    ) : null}
+                  </video>
+                </div>
               </article>
             ))}
           </div>
