@@ -1,0 +1,132 @@
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("../neue- montreal/neuemontreal-medium-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0c0c0e;
+  --text: #fafafa;
+  --phrase-size: clamp(2.85rem, 10.5vw, 6.25rem);
+  --viewport-pad: clamp(0.85rem, 3vw, 1.75rem);
+  --text-band-max: 96rem;
+  --viewport-inline-pad: clamp(1rem, 4vw, 2.75rem);
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "PP Neue Montreal", system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.pin-height {
+  --pin-vh: 175vh;
+  position: relative;
+  min-height: calc(var(--segments, 3) * var(--pin-vh));
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  max-width: var(--text-band-max);
+  margin-inline: auto;
+  overflow: hidden;
+  padding-block: var(--viewport-pad);
+  padding-inline: var(--viewport-inline-pad);
+  min-height: calc(var(--phrase-size) * 1.45 + var(--viewport-pad) * 2);
+}
+
+.center {
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--phrase-size) * 1.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentence {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: var(--phrase-size);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+  white-space: nowrap;
+}
+
+.sentence .char {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (max-width: 900px) {
+  .sentence {
+    white-space: normal;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sentence .char {
+    will-change: auto;
+  }
+}
+
+html.reduced-motion .pin-height {
+  min-height: auto;
+}
+
+html.reduced-motion .container {
+  min-height: auto;
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+
+html.reduced-motion .viewport {
+  overflow: visible;
+  min-height: auto;
+}
+
+html.reduced-motion .center {
+  min-height: auto;
+}
+
+html.reduced-motion .sentence {
+  position: relative;
+  left: auto;
+  top: auto;
+  translate: none;
+  white-space: normal;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
