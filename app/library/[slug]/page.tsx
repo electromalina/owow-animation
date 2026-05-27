@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { animations, getAnimationBySlug } from "@/src/data/animations";
-import { DetailClient } from "./detail-client";
+import { animations, getAnimationBySlug } from "@/src/animations/registry";
+import { DetailClient } from "@/src/components/detail/DetailClient";
 
 export function generateStaticParams() {
   return animations.map((animation) => ({ slug: animation.slug }));
