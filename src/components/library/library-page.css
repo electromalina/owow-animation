@@ -179,6 +179,12 @@
   white-space: nowrap;
 }
 
+.library-chips__chip--muted {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #aaaaaa;
+}
+
 .library-chips__remove {
   display: inline-flex;
   align-items: center;

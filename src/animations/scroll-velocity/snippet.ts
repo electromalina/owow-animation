@@ -226,12 +226,12 @@ export function getHighlightedSnippet(
   const immediateScroll = 0.35 * speed;
   const maxVelocity = 26 * speed;
 
-  const kw = (t: string) => `<span style="color:#d0d2cc">${t}</span>`;
-  const fn = (t: string) => `<span style="color:#ffffff">${t}</span>`;
-  const str = (t: string) => `<span style="color:#b8c9a8">${t}</span>`;
-  const num = (t: string) => `<span style="color:#e2e2e2">${t}</span>`;
-  const prop = (t: string) => `<span style="color:#d0d2cc">${t}</span>`;
-  const pn = (t: string) => `<span style="color:rgba(255,255,255,0.45)">${t}</span>`;
+  const kw = (t: string) => `<span style="color:#c792ea">${t}</span>`; // keywords
+  const fn = (t: string) => `<span style="color:#82aaff">${t}</span>`; // functions / components
+  const str = (t: string) => `<span style="color:#c3e88d">${t}</span>`; // strings
+  const num = (t: string) => `<span style="color:#f78c6c">${t}</span>`; // numbers
+  const prop = (t: string) => `<span style="color:#89ddff">${t}</span>`; // object keys / props
+  const pn = (t: string) => `<span style="color:rgba(255,255,255,0.5)">${t}</span>`; // punctuation
 
   function maybeHighlight(key: string, html: string) {
     return lastChangedKey === key

@@ -21,21 +21,32 @@ export function ActiveFilterChips({ filters, onChange }: ActiveFilterChipsProps)
     <div className="library-chips">
       <span className="library-chips__label">Filters:</span>
       <div className="library-chips__list">
-        {chips.map((chip) => (
-          <span key={chip.id} className="library-chips__chip">
-            {chip.label}
-            {chip.removable ? (
-              <button
-                type="button"
-                className="library-chips__remove"
-                aria-label={`Remove ${chip.label} filter`}
-                onClick={() => onChange(resetFilterKey(filters, chip.id))}
-              >
-                ×
-              </button>
-            ) : null}
-          </span>
-        ))}
+        {chips.map((chip) => {
+          const isDefaultFacetChip = !chip.removable;
+          return (
+            <span
+              key={chip.id}
+              className={[
+                "library-chips__chip",
+                isDefaultFacetChip ? "library-chips__chip--muted" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
+              {chip.label}
+              {chip.removable ? (
+                <button
+                  type="button"
+                  className="library-chips__remove"
+                  aria-label={`Remove ${chip.label} filter`}
+                  onClick={() => onChange(resetFilterKey(filters, chip.id))}
+                >
+                  ×
+                </button>
+              ) : null}
+            </span>
+          );
+        })}
       </div>
       {showClearAll ? (
         <button

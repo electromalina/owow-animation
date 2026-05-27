@@ -101,10 +101,10 @@ export function getHighlightedSnippet(
   const strength = Number(state.params.strength ?? 0.42);
   const radius = Number(state.params.radius ?? 110);
 
-  const kw = (t: string) => `<span style="color:#d0d2cc">${t}</span>`;
-  const fn = (t: string) => `<span style="color:#ffffff">${t}</span>`;
-  const num = (t: string) => `<span style="color:#e2e2e2">${t}</span>`;
-  const pn = (t: string) => `<span style="color:rgba(255,255,255,0.45)">${t}</span>`;
+  const kw = (t: string) => `<span style="color:#c792ea">${t}</span>`; // keywords
+  const fn = (t: string) => `<span style="color:#82aaff">${t}</span>`; // functions / components
+  const num = (t: string) => `<span style="color:#f78c6c">${t}</span>`; // numbers
+  const pn = (t: string) => `<span style="color:rgba(255,255,255,0.5)">${t}</span>`; // punctuation
 
   const h = (key: string, html: string) =>
     lastChangedKey === key ? `<span style="color:#feb800">${html}</span>` : html;

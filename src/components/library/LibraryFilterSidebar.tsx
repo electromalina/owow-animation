@@ -34,11 +34,18 @@ function FilterSection<T extends string>({
       <h2 className="library-sidebar__heading">{heading}</h2>
       {options.map((option) => {
         const isSelected = selected === option.id;
+        const isAllOption = option.id === ("all" as T);
         return (
           <button
             key={option.id}
             type="button"
-            className={`library-sidebar__option${isSelected ? " library-sidebar__option--selected" : ""}`}
+            className={[
+              "library-sidebar__option",
+              isSelected ? "library-sidebar__option--selected" : "",
+              isSelected && isAllOption ? "library-sidebar__option--selected-all" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
             onClick={() => onSelect(option.id)}
           >
             <span className="library-sidebar__option-label">

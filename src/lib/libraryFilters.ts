@@ -187,11 +187,6 @@ export function buildActiveChips(state: LibraryFilterState): ActiveChip[] {
       label: categoryChipLabel(state.category),
       removable: state.category !== "all",
     },
-    {
-      id: "sort",
-      label: "Newest",
-      removable: false,
-    },
   ];
 }
 
