@@ -1,0 +1,234 @@
+/* [project]/Desktop/SeM 4 evidences/Budget snapshot prototype/owow-animation/src/components/library/library-page.css [app-client] (css) */
+.library-page {
+  --library-page-gutter: clamp(20px, 6vw, 131px);
+  width: 100%;
+  padding: clamp(16px, 3vw, 32px) var(--library-page-gutter) clamp(32px, 5vw, 64px);
+  gap: clamp(24px, 4vw, 48px);
+  display: flex;
+}
+
+.library-page__main {
+  flex-direction: column;
+  flex: 1;
+  gap: 24px;
+  min-width: 0;
+  display: flex;
+}
+
+.library-page__count {
+  font-family: var(--font-body), system-ui, sans-serif;
+  color: #888;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.library-page__grid {
+  grid-template-columns: 1fr;
+  gap: 40px 32px;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .library-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.library-sidebar {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-self: flex-start;
+  gap: 32px;
+  width: 240px;
+  display: flex;
+}
+
+.library-sidebar__section {
+  flex-direction: column;
+  gap: 4px;
+  display: flex;
+}
+
+.library-sidebar__heading {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0 0 8px;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.library-sidebar__option {
+  color: #888;
+  width: 100%;
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  transition: background .15s, color .15s;
+  display: flex;
+}
+
+.library-sidebar__option:hover {
+  color: #ccc;
+}
+
+.library-sidebar__option--selected {
+  color: #fff;
+  background: #1a1a1a;
+}
+
+.library-sidebar__option-label {
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.library-sidebar__dot {
+  background: none;
+  border-radius: 50%;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+}
+
+.library-sidebar__option--selected .library-sidebar__dot {
+  background: #fff;
+}
+
+.library-sidebar__count {
+  color: inherit;
+  opacity: .7;
+  font-size: 14px;
+}
+
+.library-sidebar__reset {
+  margin-top: 8px;
+}
+
+.library-sidebar__reset-btn {
+  color: #888;
+  width: 100%;
+  font-family: var(--font-body), system-ui, sans-serif;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  transition: border-color .15s, color .15s;
+}
+
+.library-sidebar__reset-btn:hover {
+  color: #ccc;
+  border-color: #555;
+}
+
+.library-chips {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  display: flex;
+}
+
+.library-chips__label {
+  font-family: var(--font-body), system-ui, sans-serif;
+  color: #888;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.library-chips__list {
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.library-chips__chip {
+  color: #fff;
+  font-family: var(--font-body), system-ui, sans-serif;
+  white-space: nowrap;
+  background: #222;
+  border: 1px solid #ffffff1a;
+  border-radius: 6px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px 6px 12px;
+  font-size: 13px;
+  line-height: 18px;
+  display: inline-flex;
+}
+
+.library-chips__remove {
+  color: #888;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  transition: color .15s;
+  display: inline-flex;
+}
+
+.library-chips__remove:hover {
+  color: #fff;
+}
+
+.library-chips__clear {
+  color: #888;
+  font-family: var(--font-body), system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  margin-left: auto;
+  padding: 0;
+  font-size: 14px;
+  line-height: 20px;
+  transition: color .15s;
+}
+
+.library-chips__clear:hover {
+  color: #fff;
+}
+
+.library-page__empty {
+  text-align: center;
+  color: #888;
+  padding: 48px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .library-page {
+    flex-direction: column;
+  }
+
+  .library-sidebar {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=0kdn_et%20snapshot%20prototype_owow-animation_src_components_library_library-page_0icraac.css.map*/

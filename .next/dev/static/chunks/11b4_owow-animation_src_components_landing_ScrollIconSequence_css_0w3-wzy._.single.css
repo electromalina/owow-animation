@@ -1,0 +1,84 @@
+/* [project]/Desktop/SeM 4 evidences/Budget snapshot prototype/owow-animation/src/components/landing/ScrollIconSequence.css [app-client] (css) */
+.scroll-icons__cluster {
+  z-index: 50;
+  pointer-events: none;
+  will-change: left, top;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  transform: translate(-50%, -50%);
+}
+
+.scroll-icons__silver-fixed {
+  transform-origin: center;
+  mix-blend-mode: lighten;
+  will-change: transform, width;
+  flex-shrink: 0;
+  height: auto;
+  display: block;
+}
+
+.scroll-icons__copy-wrap {
+  will-change: transform;
+  flex-shrink: 0;
+  width: min(1100px, 94vw);
+  margin-top: -120px;
+}
+
+.scroll-icons__copy-stack {
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  display: flex;
+}
+
+.scroll-icons__copy {
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-align: center;
+  color: #ffffff61;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 clamp(20px, 4vw, 40px);
+  position: relative;
+}
+
+.scroll-icons__copy--lead {
+  letter-spacing: -.02em;
+  font-size: 48px;
+  line-height: 1.15;
+}
+
+.scroll-icons__copy--body {
+  max-width: min(620px, 86vw);
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.atlas-description-text .word, .atlas-description-text .atlas-word {
+  will-change: transform, color;
+  display: inline-block;
+}
+
+.atlas-description-text .atlas-word-mask {
+  vertical-align: bottom;
+  display: inline-block;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-icons__copy {
+    color: #fff;
+  }
+}
+
+.scroll-icons {
+  background: #0d0d0d;
+  height: 280vh;
+  margin-top: -1px;
+  position: relative;
+}
+
+/*# sourceMappingURL=11b4_owow-animation_src_components_landing_ScrollIconSequence_css_0w3-wzy._.single.css.map*/

@@ -1,0 +1,33 @@
+/* [project]/Desktop/SeM 4 evidences/Budget snapshot prototype/owow-animation/app/ppneuemontrealmedium_f3e19a53.module.css [app-client] (css) */
+@font-face {
+  font-family: ppNeueMontrealMedium;
+  src: url("../media/ppneuemontreal_medium-s.p.108-s809w5y3g.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: ppNeueMontrealMedium;
+  src: url("../media/ppneuemontreal_medium-s.p.0.34mi-8kecv5.woff") format("woff");
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: ppNeueMontrealMedium Fallback;
+  src: local(Arial);
+  ascent-override: 98.07%;
+  descent-override: 24.77%;
+  line-gap-override: 0.0%;
+  size-adjust: 97.68%;
+}
+
+.ppneuemontrealmedium_f3e19a53-module__QTsk_W__className {
+  font-family: ppNeueMontrealMedium, ppNeueMontrealMedium Fallback;
+}
+
+.ppneuemontrealmedium_f3e19a53-module__QTsk_W__variable {
+  --font-heading: "ppNeueMontrealMedium", "ppNeueMontrealMedium Fallback";
+}
+
+/*# sourceMappingURL=11b4_owow-animation_app_ppneuemontrealmedium_f3e19a53_module_css_0w3-wzy._.single.css.map*/

@@ -1,0 +1,33 @@
+/* [project]/Desktop/SeM 4 evidences/Budget snapshot prototype/owow-animation/app/ppneuemontrealmono_995292bf.module.css [app-client] (css) */
+@font-face {
+  font-family: ppNeueMontrealMono;
+  src: url("../media/pp_neue_montreal_mono-s.p.0d49uvy1op02l.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: ppNeueMontrealMono;
+  src: url("../media/pp_neue_montreal_mono-s.p.0v~cfh275bbt5.woff") format("woff");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: ppNeueMontrealMono Fallback;
+  src: local(Arial);
+  ascent-override: 72.86%;
+  descent-override: 18.4%;
+  line-gap-override: 0.0%;
+  size-adjust: 131.49%;
+}
+
+.ppneuemontrealmono_995292bf-module__y7KLBW__className {
+  font-family: ppNeueMontrealMono, ppNeueMontrealMono Fallback;
+}
+
+.ppneuemontrealmono_995292bf-module__y7KLBW__variable {
+  --font-mono: "ppNeueMontrealMono", "ppNeueMontrealMono Fallback";
+}
+
+/*# sourceMappingURL=11b4_owow-animation_app_ppneuemontrealmono_995292bf_module_css_0w3-wzy._.single.css.map*/

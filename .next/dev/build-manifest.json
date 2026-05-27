@@ -1,0 +1,26 @@
+{
+  "pages": {
+    "/_app": []
+  },
+  "devFiles": [],
+  "polyfillFiles": [
+    "static/chunks/0cv2_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [
+    "static/development/_buildManifest.js",
+    "static/development/_ssgManifest.js",
+    "static/development/_clientMiddlewareManifest.js"
+  ],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_02wyzzi._.js",
+    "static/chunks/0cv2_next_dist_compiled_next-devtools_index_0o~1orc.js",
+    "static/chunks/0cv2_next_dist_compiled_react-dom_0lq5r~d._.js",
+    "static/chunks/0cv2_next_dist_compiled_react-server-dom-turbopack_08dt99a._.js",
+    "static/chunks/0cv2_next_dist_compiled_01y61u9._.js",
+    "static/chunks/0cv2_next_dist_client_0d7uupk._.js",
+    "static/chunks/0cv2_next_dist_0qocbhv._.js",
+    "static/chunks/0cv2_@swc_helpers_cjs_0zvc0zo._.js",
+    "static/chunks/Desktop_SeM 4 evidences_Budget snapshot prototype_owow-animation_0rqeker._.js",
+    "static/chunks/0nkw_SeM 4 evidences_Budget snapshot prototype_owow-animation_0lfhp-h._.js"
+  ]
+}

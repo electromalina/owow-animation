@@ -1,0 +1,15 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/Desktop/SeM 4 evidences/Budget snapshot prototype/owow-animation/app/library/page": [
+      "static/media/ppneuemontreal_book-s.p.0rvq~2w6hjab1.woff2",
+      "static/media/ppneuemontreal_book-s.p.0cb0_-l2i81~f.woff",
+      "static/media/ppneuemontreal_medium-s.p.108-s809w5y3g.woff2",
+      "static/media/ppneuemontreal_medium-s.p.0.34mi-8kecv5.woff",
+      "static/media/pp_neue_montreal_mono-s.p.0d49uvy1op02l.woff2",
+      "static/media/pp_neue_montreal_mono-s.p.0v~cfh275bbt5.woff"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}
