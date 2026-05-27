@@ -1,0 +1,121 @@
+/* Scroll mission text — ported from hedieh-animation-text standalone prototype */
+
+.sms-demo__viewport {
+  --sms-phrase: clamp(1.5rem, 5.5vw, 3.25rem);
+
+  box-sizing: border-box;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+  color: inherit;
+
+  scrollbar-width: none; /* Firefox */
+}
+
+.sms-demo__viewport::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.sms-demo__pin {
+  position: relative;
+}
+
+.sms-demo__container {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.sms-demo__viewport-inner {
+  position: relative;
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  overflow: hidden;
+  padding-block: clamp(0.85rem, 3vw, 1.75rem);
+  padding-inline: clamp(1rem, 4vw, 2.75rem);
+  min-height: calc(var(--sms-phrase, clamp(1.5rem, 5.5vw, 3.25rem)) * 1.45 + clamp(0.85rem, 3vw, 1.75rem) * 2);
+}
+
+.sms-demo__center {
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--sms-phrase, clamp(1.5rem, 5.5vw, 3.25rem)) * 1.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sms-demo__sentence {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: var(--font-heading), var(--font-body), system-ui, sans-serif;
+  font-size: var(--sms-phrase);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+  white-space: nowrap;
+}
+
+.sms-demo__char {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (max-width: 900px) {
+  .sms-demo__sentence {
+    white-space: nowrap;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sms-demo__char {
+    will-change: auto;
+  }
+}
+
+/* Fallback layout when reduced motion is active (matches prototype intent) */
+.sms-demo--reduced.sms-demo__pin {
+  min-height: auto !important;
+}
+
+.sms-demo--reduced .sms-demo__container {
+  min-height: auto;
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+
+.sms-demo--reduced .sms-demo__viewport-inner {
+  overflow: visible;
+  min-height: auto;
+}
+
+.sms-demo--reduced .sms-demo__center {
+  min-height: auto;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.sms-demo--reduced .sms-demo__sentence {
+  position: relative;
+  left: auto;
+  top: auto;
+  translate: none;
+  white-space: normal;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}

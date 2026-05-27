@@ -1,9 +1,11 @@
 import { animation5 } from "@/src/animations/animation-5";
 import { animation6 } from "@/src/animations/animation-6";
 import { blurCascade } from "@/src/animations/blur-cascade";
+import { hoverPreviewStrip } from "@/src/animations/hover-preview-strip";
 import { magneticButton } from "@/src/animations/magnetic-button";
 import { magneticCursor } from "@/src/animations/magnetic-cursor";
 import { particleText } from "@/src/animations/particle-text";
+import { scrollMissionText } from "@/src/animations/scroll-mission-text";
 import { scrollVelocity } from "@/src/animations/scroll-velocity";
 import type {
   Animation,
@@ -16,6 +18,8 @@ import type {
 const modules: AnimationModule[] = [
   magneticCursor,
   scrollVelocity,
+  scrollMissionText,
+  hoverPreviewStrip,
   magneticButton,
   particleText,
   blurCascade,
