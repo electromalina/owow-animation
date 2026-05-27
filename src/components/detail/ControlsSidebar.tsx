@@ -310,7 +310,7 @@ export function ControlsSidebar({
         <div
           ref={scrollRef}
           className="flex-1 overflow-y-auto"
-          style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.12) transparent" }}
+          style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.12) transparent", overscrollBehavior: "contain" }}
         >
           {animation.params.length > 0 && (
             <div className="p-5">
@@ -332,7 +332,7 @@ export function ControlsSidebar({
               Code
             </span>
             <pre
-              className="overflow-x-auto rounded-md border border-white/10 bg-black/60 p-4 font-[family-name:var(--font-mono)] text-[12px] leading-[1.7] text-white/90"
+              className="overflow-x-hidden whitespace-pre-wrap rounded-md border border-white/10 bg-black/60 p-4 font-[family-name:var(--font-mono)] text-[12px] leading-[1.6] text-white/90"
               dangerouslySetInnerHTML={{ __html: highlightedCode }}
             />
             <p className="mt-2.5 font-[family-name:var(--font-mono)] text-[11px] text-white/30">
