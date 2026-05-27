@@ -13,6 +13,10 @@
 7. Register the module in `src/animations/registry.ts`.
 8. Run `npm run validate:animations` and `npm run build`.
 
+## Controls: easing / enum picker
+
+In `controls.ts`, a parameter may use **`type: "enum"`** with **`options`** (each option has `value` and optional SVG `curve` for the picker preview). The stored value remains a **`number`** (selected option index) in app state — see [`blur-cascade/controls.ts`](src/animations/blur-cascade/controls.ts) and map back to GSAP easing strings in `snippet.ts` / `Demo.tsx` as needed.
+
 ## Library filters
 
 The library page filters animations by **platform**, **engine (library)**, and **category**. Set `category` in `meta.ts` to the animation type — this is what users filter on:

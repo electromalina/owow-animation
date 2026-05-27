@@ -13,6 +13,11 @@ export type ControlSchemaItem = {
   decimals: number;
   unit: string;
   defaultValue: number;
+  // optional: "slider" is the default, "enum" renders as a card-grid picker
+  type?: "slider" | "enum";
+  // required when type === "enum": the selectable options
+  // value is stored as its index (number) in ControlValues so ControlValues stays Record<string,number>
+  options?: { value: string; curve?: string }[];
 };
 
 export type ControlSchema = ControlSchemaItem[];
