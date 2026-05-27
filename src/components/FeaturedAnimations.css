@@ -1,5 +1,6 @@
 .featured-animations {
   --featured-bg: #0d0d0d;
+  --featured-card-bg: #111111;
   --featured-accent: #feb800;
   --featured-font: "PP Neue Montreal", system-ui, sans-serif;
   --featured-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
@@ -15,33 +16,25 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(48px, 8vh, 96px) 0 clamp(40px, 6vh, 72px);
+  justify-content: flex-start;
+  padding: clamp(112px, 18vh, 180px) 0 clamp(40px, 6vh, 72px);
   overflow: hidden;
 }
 
 .featured-animations__header {
   flex-shrink: 0;
-  padding: 0 clamp(20px, 6vw, 131px) clamp(32px, 4vh, 56px);
+  padding: 0 clamp(20px, 6vw, 131px) clamp(56px, 8vh, 96px);
   max-width: 1400px;
 }
 
 .featured-animations__title {
   margin: 0 0 clamp(12px, 1.5vh, 20px);
   font-family: var(--featured-font);
-  font-size: clamp(2.25rem, 5vw, 72px);
+  font-size: clamp(1.75rem, 3.5vw, 48px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   font-weight: 500;
-}
-
-.featured-animations__title-light {
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.featured-animations__title-strong {
-  font-weight: 500;
+  color: #fff;
 }
 
 .featured-animations__subtitle {
@@ -50,7 +43,7 @@
   font-size: clamp(11px, 1vw, 14px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(226, 226, 226, 0.88);
 }
 
 .featured-animations__viewport {
@@ -76,31 +69,36 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 2.5vw, 28px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #1a1a1a;
+  padding: clamp(28px, 3.5vw, 40px);
+  border-radius: clamp(32px, 5vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--featured-card-bg);
+  overflow: hidden;
 }
 
 .featured-animations__tag {
   align-self: flex-start;
-  padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(2px);
   font-family: var(--featured-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: capitalize;
+  color: #fff;
 }
 
 .featured-animations__card-title {
-  margin: clamp(14px, 2vh, 20px) 0 0;
+  margin: clamp(16px, 2vh, 24px) 0 0;
   font-family: var(--featured-font);
   font-weight: 500;
-  font-size: clamp(1.25rem, 2vw, 28px);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.35rem, 2.2vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .featured-animations__preview {
@@ -110,6 +108,12 @@
   justify-content: center;
   margin: clamp(16px, 2vh, 24px) 0;
   min-height: 140px;
+}
+
+.featured-animations__preview:has(.featured-scroll-demo) {
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: clamp(180px, 24vh, 220px);
 }
 
 .featured-animations__dot-demo {
@@ -151,16 +155,25 @@
 .featured-animations__details {
   align-self: flex-end;
   margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
   font-family: var(--featured-mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .featured-animations__details:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
   color: #fff;
 }
 
@@ -168,7 +181,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #141414;
+  background: var(--featured-card-bg);
 }
 
 .featured-animations__enter-link {

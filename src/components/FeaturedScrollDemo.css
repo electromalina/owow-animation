@@ -1,0 +1,146 @@
+.featured-scroll-demo {
+  --demo-surface: #1b1b1b;
+  --demo-muted: #d0d2cc;
+  --demo-white: #ffffff;
+  --demo-accent: #feb800;
+
+  position: relative;
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+}
+
+.featured-scroll-demo__filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.featured-scroll-demo__hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 2px;
+}
+
+.featured-scroll-demo__hud-label {
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--demo-muted);
+}
+
+.featured-scroll-demo__track {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--demo-surface);
+  overflow: hidden;
+}
+
+.featured-scroll-demo__progress {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--demo-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.featured-scroll-demo__viewport {
+  position: relative;
+  height: clamp(148px, 22vh, 190px);
+  overflow: hidden;
+  touch-action: none;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+.featured-scroll-demo__viewport:focus-visible {
+  outline: none;
+}
+
+.featured-scroll-demo__strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 0 0 16px;
+  box-sizing: border-box;
+  transform-origin: center center;
+  will-change: transform, filter;
+}
+
+.featured-scroll-demo__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 0;
+  opacity: 0.22;
+  text-align: center;
+}
+
+.featured-scroll-demo__row-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--demo-accent);
+}
+
+.featured-scroll-demo__row-label {
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+  font-size: clamp(15px, 2.2vw, 19px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--demo-white);
+}
+
+.featured-scroll-demo__hint {
+  margin: 0;
+  text-align: center;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--demo-muted);
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.featured-scroll-demo__hint--hidden {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-scroll-demo__strip {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .featured-scroll-demo__row {
+    opacity: 1;
+  }
+}

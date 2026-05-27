@@ -1,26 +1,27 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { FeaturedScrollDemo } from "./FeaturedScrollDemo.jsx";
 import "./FeaturedAnimations.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FEATURED_CARDS = [
   {
-    id: "magnetic",
-    tag: "WEB COMP",
-    title: "Magnetic Button",
-    variant: "dot",
+    id: "scroll-velocity",
+    tag: "Scroll / GSAP",
+    title: "Scroll Velocity",
+    variant: "scroll-demo",
   },
   {
     id: "staggered",
-    tag: "TYPOGRAPHY",
+    tag: "Typo / GSAP",
     title: "Staggered Text",
     variant: "dot",
   },
   {
     id: "atlas",
-    tag: "WEB COMP",
+    tag: "Web / GSAP",
     title: "Atlas Library",
     variant: "copy",
     copy:
@@ -77,12 +78,9 @@ export function FeaturedAnimations() {
     >
       <div ref={pinRef} className="featured-animations__pin">
         <header className="featured-animations__header">
-          <h2 className="featured-animations__title">
-            <span className="featured-animations__title-light">[ Featured </span>
-            <span className="featured-animations__title-strong">Animations ]</span>
-          </h2>
+          <h2 className="featured-animations__title">Featured Animations</h2>
           <p className="featured-animations__subtitle">
-            A GLIMPSE INTO THE ATLAS LIBRARY.
+            [A GLIMPSE INTO THE ATLAS LIBRARY.]
           </p>
         </header>
 
@@ -116,8 +114,13 @@ export function FeaturedAnimations() {
                   <span className="featured-animations__tag">{card.tag}</span>
                   <h3 className="featured-animations__card-title">{card.title}</h3>
 
-                  <div className="featured-animations__preview" aria-hidden>
-                    {card.variant === "dot" ? (
+                  <div
+                    className="featured-animations__preview"
+                    aria-hidden={card.variant !== "scroll-demo"}
+                  >
+                    {card.variant === "scroll-demo" ? (
+                      <FeaturedScrollDemo />
+                    ) : card.variant === "dot" ? (
                       <div className="featured-animations__dot-demo">
                         <span className="featured-animations__dot-ring" />
                         <span className="featured-animations__dot-core" />
