@@ -206,7 +206,16 @@ export function Footer() {
           <span className="site-footer__headline-line">STOP REBUILDING,</span>
           <span
             className="site-footer__headline-line site-footer__headline-line--accent"
+            role="button"
+            tabIndex={0}
             onMouseEnter={handleAccentHover}
+            onFocus={handleAccentHover}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                handleAccentHover();
+              }
+            }}
           >
             START {animatedWord}.
           </span>
@@ -223,34 +232,34 @@ export function Footer() {
             <Link href="#top" className="site-footer__bottom-link">
               Back to Top
             </Link>
-            <Link href="#services" className="site-footer__bottom-link">
+            <Link href="/library" className="site-footer__bottom-link">
               Library
             </Link>
-            <Link href="#venture" className="site-footer__bottom-link">
+            <Link href="#motion-categories" className="site-footer__bottom-link">
               Motion Categories
             </Link>
-            <Link href="#work" className="site-footer__bottom-link">
+            <Link href="#featured" className="site-footer__bottom-link">
               Featured Animations
             </Link>
-            <Link href="#about" className="site-footer__bottom-link">
+            <Link href="#showcase" className="site-footer__bottom-link">
               Showcase
             </Link>
           </nav>
 
           <p className="site-footer__bottom-label site-footer__bottom-label--spaced">Socials</p>
           <nav className="site-footer__bottom-nav" aria-label="Social links">
-            <Link href="#" className="site-footer__bottom-link">
+            <span className="site-footer__bottom-link site-footer__bottom-link--muted">
               LinkedIn
-            </Link>
-            <Link href="#" className="site-footer__bottom-link">
+            </span>
+            <span className="site-footer__bottom-link site-footer__bottom-link--muted">
               Medium
-            </Link>
-            <Link href="#" className="site-footer__bottom-link">
+            </span>
+            <span className="site-footer__bottom-link site-footer__bottom-link--muted">
               Instagram
-            </Link>
-            <Link href="#" className="site-footer__bottom-link">
+            </span>
+            <span className="site-footer__bottom-link site-footer__bottom-link--muted">
               GitHub
-            </Link>
+            </span>
           </nav>
         </section>
 

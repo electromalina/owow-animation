@@ -1,5 +1,5 @@
 .site-footer {
-  --footer-bg: #0d0d0d;
+  --footer-bg: var(--landing-surface);
   --footer-accent: #feb800;
   --footer-font: "PP Neue Montreal", system-ui, sans-serif;
   --footer-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
@@ -14,7 +14,7 @@
 .site-footer__marquee {
   margin-top: clamp(48px, 8vh, 96px);
   border-block: 1px solid rgba(255, 255, 255, 0.12);
-  background: #0a0a0a;
+  background: var(--landing-surface-raised);
   padding: clamp(14px, 2vh, 18px) 0;
   overflow: hidden;
 }
@@ -118,6 +118,13 @@
 
 .site-footer__headline-line--accent {
   color: var(--footer-accent);
+  cursor: default;
+}
+
+.site-footer__headline-line--accent:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 6px;
+  border-radius: 2px;
 }
 
 .site-footer__library-btn {
@@ -143,7 +150,7 @@
 
 .site-footer__library-btn:hover {
   background: #fff;
-  color: #0d0d0d;
+  color: var(--landing-surface);
 }
 
 .site-footer__library-btn:focus-visible {
@@ -173,7 +180,7 @@
   font-size: clamp(18px, 1.1vw, 22px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: var(--landing-text-secondary);
 }
 
 .site-footer__bottom-label--spaced {
@@ -206,7 +213,7 @@
 }
 
 .site-footer__bottom-nav:hover .site-footer__bottom-link {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--landing-text-tertiary);
 }
 
 .site-footer__bottom-nav:hover .site-footer__bottom-link:hover {
@@ -222,6 +229,17 @@
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 8px;
+}
+
+.site-footer__bottom-link--muted {
+  color: var(--landing-text-tertiary);
+  cursor: default;
+}
+
+.site-footer__bottom-link:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .site-footer__bottom-address {

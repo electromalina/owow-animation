@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import type { FacetCounts, LibraryFilterState } from "@/src/lib/libraryFilters";
 import {
   DEFAULT_LIBRARY_FILTERS,
@@ -46,6 +48,7 @@ function FilterSection<T extends string>({
             ]
               .filter(Boolean)
               .join(" ")}
+            aria-pressed={isSelected}
             onClick={() => onSelect(option.id)}
           >
             <span className="library-sidebar__option-label">
@@ -60,13 +63,13 @@ function FilterSection<T extends string>({
   );
 }
 
-export function LibraryFilterSidebar({
+function FilterPanels({
   filters,
   counts,
   onChange,
 }: LibraryFilterSidebarProps) {
   return (
-    <aside className="library-sidebar" aria-label="Filter animations">
+    <>
       <FilterSection
         heading="Platform"
         options={PLATFORM_OPTIONS}
@@ -99,6 +102,40 @@ export function LibraryFilterSidebar({
         >
           Reset all filters
         </button>
+      </div>
+    </>
+  );
+}
+
+export function LibraryFilterSidebar({
+  filters,
+  counts,
+  onChange,
+}: LibraryFilterSidebarProps) {
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filters.platform !== "all") count += 1;
+    if (filters.library !== "all") count += 1;
+    if (filters.category !== "all") count += 1;
+    return count;
+  }, [filters]);
+
+  const summaryLabel =
+    activeFilterCount > 0
+      ? `Filters (${activeFilterCount} active)`
+      : "Filters";
+
+  return (
+    <aside className="library-sidebar" aria-label="Filter animations">
+      <details className="library-sidebar__collapsible">
+        <summary className="library-sidebar__toggle">{summaryLabel}</summary>
+        <div className="library-sidebar__panels">
+          <FilterPanels filters={filters} counts={counts} onChange={onChange} />
+        </div>
+      </details>
+
+      <div className="library-sidebar__panels library-sidebar__panels--desktop">
+        <FilterPanels filters={filters} counts={counts} onChange={onChange} />
       </div>
     </aside>
   );

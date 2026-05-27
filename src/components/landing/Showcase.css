@@ -1,5 +1,28 @@
+.showcase__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.showcase__carousel:focus-visible {
+  outline: 2px solid var(--showcase-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.showcase__explore-btn:focus-visible {
+  outline: 2px solid var(--showcase-accent);
+  outline-offset: 3px;
+}
+
 .showcase {
-  --showcase-bg: #0d0d0d;
+  --showcase-bg: var(--landing-surface);
   --showcase-accent: #feb800;
   --showcase-font: "PP Neue Montreal", system-ui, sans-serif;
   --showcase-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
@@ -37,7 +60,7 @@
   font-size: clamp(11px, 1vw, 14px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(226, 226, 226, 0.88);
+  color: var(--landing-text-secondary);
 }
 
 /* Full-bleed carousel: side slides peek to viewport edges */
@@ -69,8 +92,14 @@
   opacity: 0.42;
   transform: scale(0.93);
   transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
+    opacity 0.45s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.45s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase__slide {
+    transition: none;
+  }
 }
 
 .showcase__slide--active {
@@ -86,6 +115,10 @@
   overflow: hidden;
   background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 45%, #1f1f1f 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.showcase__placeholder--idle {
+  pointer-events: none;
 }
 
 .showcase__preview-video {
@@ -137,7 +170,7 @@
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--landing-text-secondary);
 }
 
 .showcase__explore-btn {
@@ -160,13 +193,13 @@
   color: #fff;
   text-decoration: none;
   transition:
-    background 0.2s ease,
-    color 0.2s ease;
+    background 0.2s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    color 0.2s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .showcase__explore-btn:hover {
   background: #fff;
-  color: #0d0d0d;
+  color: var(--landing-surface);
 }
 
 .showcase__nav {
@@ -190,8 +223,8 @@
   line-height: 1;
   cursor: pointer;
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
+    border-color 0.2s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    background 0.2s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .showcase__nav-btn:hover {

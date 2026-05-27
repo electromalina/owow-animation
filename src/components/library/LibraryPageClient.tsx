@@ -36,6 +36,8 @@ export function LibraryPageClient() {
       />
 
       <div className="library-page__main">
+        <h1 className="library-page__title">Animation Library</h1>
+
         <ActiveFilterChips filters={filters} onChange={setFilters} />
 
         <p className="library-page__count">
@@ -44,9 +46,21 @@ export function LibraryPageClient() {
         </p>
 
         {filteredAnimations.length === 0 ? (
-          <p className="library-page__empty">No animations match the current filters.</p>
+          <div className="library-page__empty" role="status">
+            <p className="library-page__empty-title">No animations match your filters</p>
+            <p className="library-page__empty-desc">
+              Clear active filters or reset to browse the full Atlas catalog.
+            </p>
+            <button
+              type="button"
+              className="library-page__empty-reset"
+              onClick={() => setFilters(DEFAULT_LIBRARY_FILTERS)}
+            >
+              Reset all filters
+            </button>
+          </div>
         ) : (
-          <section className="library-page__grid" aria-label="Animation library">
+          <section className="library-page__grid" aria-label="Animation results">
             {filteredAnimations.map((animation) => (
               <AnimationCard key={animation.slug} animation={animation} />
             ))}

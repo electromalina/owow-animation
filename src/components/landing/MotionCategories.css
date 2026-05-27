@@ -3,7 +3,7 @@
 
   position: relative;
   z-index: 2;
-  background: #0d0d0d;
+  background: var(--landing-surface);
   color: #fff;
   margin-top: clamp(-240px, -28vh, -80px);
 }
@@ -100,6 +100,7 @@
 .motion-categories__explore-cta:hover,
 .motion-categories__explore-cta:focus-visible {
   text-decoration: none;
+  outline: none;
 }
 
 .motion-categories__explore-cta .motion-categories__wheel-title {
@@ -185,7 +186,7 @@
   font-size: clamp(14px, 1.35vw, 18px);
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--landing-text-secondary);
   will-change: filter, opacity;
 }
 
@@ -201,7 +202,7 @@
   font-size: clamp(14px, 1.2vw, 18px);
   font-style: italic;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--landing-text-secondary);
 }
 
 .motion-categories__static-list {

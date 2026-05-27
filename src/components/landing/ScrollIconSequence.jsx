@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   mapProgress,
   useDocumentScrollProgress,
   useHeaderAnchorOrigin,
 } from "@/src/hooks/landing/useIconScrollAnimation.js";
+import { usePrefersReducedMotion } from "@/src/hooks/usePrefersReducedMotion.js";
 import "@/src/components/landing/ScrollIconSequence.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -27,7 +28,8 @@ const ROTATE_END = 0.58;
 const COPY_SCROLL_START =
   ROTATE_START + (180 / 360) * (ROTATE_END - ROTATE_START);
 
-const COPY_GREY = "rgba(255, 255, 255, 0.38)";
+/** Matches `--landing-text-secondary` (GSAP needs a parseable color). */
+const COPY_GREY = "#b8b8b8";
 const COPY_WHITE = "#ffffff";
 const LIGHT_WAVE_WIDTH = 5;
 /** Rise phase share; remainder = grey→white “light pass” (scrub-driven) */
@@ -84,19 +86,7 @@ const COPY_BODY =
   "Instead of static showcases, users can explore motion systems through live previews, experimental interactions, and real-time controls designed for creative exploration.";
 
 export function ScrollIconSequence({ headerAnchorRef }) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  });
-
-  useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const fn = () => setPrefersReducedMotion(mq.matches);
-    mq.addEventListener("change", fn);
-    return () => mq.removeEventListener("change", fn);
-  }, []);
-
+  const prefersReducedMotion = usePrefersReducedMotion();
   const sectionRef = useRef(null);
   const copyRef = useRef(null);
   const wordsRef = useRef([]);
@@ -265,7 +255,33 @@ export function ScrollIconSequence({ headerAnchorRef }) {
 
       ScrollTrigger.refresh();
     };
-  }, [showCopy]);
+  }, [showCopy, prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return (
+      <section
+        ref={sectionRef}
+        className="scroll-icons scroll-icons--reduced"
+        aria-label="About Atlas"
+      >
+        <div className="scroll-icons__static">
+          <img
+            src="/landing/silver.svg"
+            alt=""
+            className="scroll-icons__silver-static"
+          />
+          <div className="scroll-icons__copy-stack">
+            <p className="scroll-icons__copy scroll-icons__copy--lead">
+              {COPY_LEAD}
+            </p>
+            <p className="scroll-icons__copy scroll-icons__copy--body">
+              {COPY_BODY}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>

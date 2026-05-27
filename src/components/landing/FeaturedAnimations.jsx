@@ -5,6 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+import { usePrefersReducedMotion } from "@/src/hooks/usePrefersReducedMotion.js";
 import { cursorTrail } from "@/src/animations/cursor-trail";
 import { magneticButton } from "@/src/animations/magnetic-button";
 import { particleText } from "@/src/animations/particle-text";
@@ -62,48 +63,47 @@ const FEATURED_CARDS = [
 ];
 
 export function FeaturedAnimations() {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const sectionRef = useRef(null);
   const pinRef = useRef(null);
   const trackRef = useRef(null);
 
   useLayoutEffect(() => {
+    if (prefersReducedMotion) return undefined;
+
     const section = sectionRef.current;
     const pin = pinRef.current;
     const track = trackRef.current;
     if (!section || !pin || !track) return undefined;
 
-    const cards = gsap.utils.toArray(
+    const cards = Array.from(
       track.querySelectorAll(".featured-animations__card"),
     );
+    if (!cards.length) return undefined;
 
-    const getCardTravelRange = () => {
-      if (!cards.length) {
-        return { startX: 0, endX: 0, distance: 0 };
-      }
-
+    const getTravel = () => {
       const viewportCenter = window.innerWidth * 0.5;
-      const firstCard = cards[0];
-      const lastCard = cards[cards.length - 1];
-      const firstCenter = firstCard.offsetLeft + firstCard.offsetWidth * 0.5;
-      const lastCenter = lastCard.offsetLeft + lastCard.offsetWidth * 0.5;
-
+      const first = cards[0];
+      const last = cards[cards.length - 1];
+      const firstCenter = first.offsetLeft + first.offsetWidth * 0.5;
+      const lastCenter = last.offsetLeft + last.offsetWidth * 0.5;
       const startX = viewportCenter - firstCenter;
       const endX = viewportCenter - lastCenter;
-      const distance = Math.max(0, Math.abs(endX - startX));
 
-      return { startX, endX, distance };
+      return {
+        startX,
+        endX,
+        distance: Math.max(0, Math.abs(endX - startX)),
+      };
     };
 
-    const updateCardDepth = () => {
-      const viewportCenter = window.innerWidth * 0.5;
-      const maxDistance = window.innerWidth * 0.5;
+    /** Depth from scroll progress (0 = first card, 1 = last). Avoids layout reads while scrubbing. */
+    const applyCardDepth = (progress) => {
+      const focusIndex = progress * (cards.length - 1);
 
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.left + rect.width * 0.5;
-        const distance = Math.abs(viewportCenter - cardCenter);
-        const normalized = gsap.utils.clamp(0, 1, distance / maxDistance);
-        const focus = 1 - normalized;
+      cards.forEach((card, i) => {
+        const dist = Math.abs(i - focusIndex);
+        const focus = gsap.utils.clamp(0, 1, 1 - dist);
 
         gsap.set(card, {
           scale: gsap.utils.interpolate(0.9, 1.04, focus),
@@ -119,35 +119,44 @@ export function FeaturedAnimations() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         track,
-        { x: () => getCardTravelRange().startX },
+        { x: () => getTravel().startX },
         {
-          x: () => getCardTravelRange().endX,
+          x: () => getTravel().endX,
           ease: "none",
           scrollTrigger: {
             trigger: pin,
             start: "top top",
-            end: () => `+=${getCardTravelRange().distance}`,
+            end: () => `+=${getTravel().distance}`,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            onRefresh: updateCardDepth,
-            onUpdate: updateCardDepth,
+            onUpdate: (self) => applyCardDepth(self.progress),
           },
         },
       );
 
-      gsap.set(track, { x: () => getCardTravelRange().startX });
-      updateCardDepth();
+      gsap.set(track, { x: () => getTravel().startX });
+      applyCardDepth(0);
     }, section);
 
-    return () => ctx.revert();
-  }, []);
+    const refresh = () => ScrollTrigger.refresh();
+
+    window.addEventListener("resize", refresh);
+    const layoutTimer = window.setTimeout(refresh, 400);
+
+    return () => {
+      window.removeEventListener("resize", refresh);
+      window.clearTimeout(layoutTimer);
+      ctx.revert();
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <section
+      id="featured"
       ref={sectionRef}
-      className="featured-animations"
+      className={`featured-animations${prefersReducedMotion ? " featured-animations--reduced" : ""}`}
       aria-label="Featured animations"
     >
       <div ref={pinRef} className="featured-animations__pin">
@@ -158,8 +167,17 @@ export function FeaturedAnimations() {
           </p>
         </header>
 
-        <div className="featured-animations__viewport">
-          <div ref={trackRef} className="featured-animations__track">
+        <div
+          className={
+            prefersReducedMotion
+              ? "featured-animations__static-grid"
+              : "featured-animations__viewport"
+          }
+        >
+          <div
+            ref={trackRef}
+            className={`featured-animations__track${prefersReducedMotion ? " featured-animations__track--static" : ""}`}
+          >
             {FEATURED_CARDS.map((card) => {
               if (card.variant === "enter") {
                 return (

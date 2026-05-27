@@ -1,0 +1,13 @@
+/* Shared landing polish: anchor scroll, motion tokens */
+
+.home-landing #top,
+.home-landing #motion-categories,
+.home-landing #featured,
+.home-landing #showcase {
+  scroll-margin-top: clamp(72px, 10vh, 112px);
+}
+
+.home-landing {
+  --landing-accent: #feb800;
+  --landing-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

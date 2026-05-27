@@ -1,18 +1,15 @@
 # Animation module template
 
-1. Copy this `_template` folder to `src/animations/<your-slug>/`.
-2. Rename files: copy `controls.ts.example` → `controls.ts` when the animation has tunable parameters.
-3. Fill in `meta.ts` (title, tags, platforms, engine, preview paths).
-4. Add `preview.gif` (library card) and optional `preview.mp4` (hover video) under `public/animations/<your-slug>/`.
-5. Implement `Demo.tsx` (live preview on the detail page) and `snippet.ts` (code shown in the controls sidebar).
-6. Export the module from `index.ts` and register it in `src/animations/registry.ts`.
+Copy this folder to `src/animations/<your-slug>/` and follow the full guide in **[CONTRIBUTING.md](../../../CONTRIBUTING.md)** at the repo root.
 
-## File roles
+Quick file roles:
 
 | File | Purpose |
 |------|---------|
 | `meta.ts` | Catalog metadata and preview asset paths |
-| `controls.ts` | Slider schema for the controls sidebar |
+| `controls.ts` | Optional slider / enum schema (`controls.ts.example` → `controls.ts`) |
 | `Demo.tsx` | Interactive preview component |
-| `snippet.ts` | `getRawSnippet` + `getHighlightedSnippet` for copy/view code |
-| `preview.gif` | Static preview for library cards (place in `public/animations/<slug>/`) |
+| `snippet.ts` | `getRawSnippet` + `getHighlightedSnippet` for the sidebar |
+| `index.ts` | Export `AnimationModule`; then register in `registry.ts` |
+
+Preview files go in `public/animations/<slug>/` (`preview.gif` and/or `preview.mp4`).

@@ -12,7 +12,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div
       className={
         isLanding
-          ? "min-h-screen w-full max-w-full overflow-x-clip bg-[#0d0d0d] text-white"
+          ? "min-h-screen w-full max-w-full overflow-x-clip bg-[var(--landing-surface)] text-white"
           : "min-h-screen bg-[#101010] text-white"
       }
     >

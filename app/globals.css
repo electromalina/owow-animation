@@ -13,6 +13,13 @@
 
   --background: var(--black);
   --foreground: var(--white);
+
+  /* Landing palette (semantic aliases over primitives) */
+  --landing-surface: #0d0d0d;
+  --landing-surface-raised: #0a0a0a;
+  --landing-accent: #feb800;
+  --landing-text-secondary: #b8b8b8;
+  --landing-text-tertiary: #9a9a9a;
 }
 
 * {

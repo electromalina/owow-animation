@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { scrambleTo } from "@/src/lib/landing/scrambleText.js";
@@ -8,7 +9,7 @@ import "@/src/components/landing/MotionCategories.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Matches hero `--hero-accent` */
+/** Matches `--landing-accent` / `--yellow` (required for SVG stroke in GSAP). */
 const ACCENT_HEX = "#feb800";
 
 const CATEGORIES = [
@@ -51,7 +52,7 @@ const CATEGORIES = [
 
 const EXPLORE_CATEGORY = CATEGORIES.find((c) => c.id === "explore");
 const EXPLORE_TITLE = EXPLORE_CATEGORY?.title ?? "Explore more categories";
-const LIBRARY_HREF = "#library";
+const LIBRARY_HREF = "/library";
 const EXPLORE_SCRAMBLE_DURATION = 0.55;
 
 const SCROLL_PER_ITEM = 85;
@@ -197,7 +198,7 @@ export function MotionCategories() {
         indexEl.textContent = CATEGORIES[idx].index;
         const isAccent = idx === n - 1;
         gsap.set(indexEl, {
-          color: isAccent ? ACCENT_HEX : "rgba(255, 255, 255, 0.55)",
+          color: isAccent ? ACCENT_HEX : "#b8b8b8",
         });
       }
 
@@ -293,7 +294,12 @@ export function MotionCategories() {
   }, [prefersReduced]);
 
   return (
-    <section ref={sectionRef} className="motion-categories" aria-label="Motion categories">
+    <section
+      id="motion-categories"
+      ref={sectionRef}
+      className="motion-categories"
+      aria-label="Motion categories"
+    >
       <div ref={pinRef} className="motion-categories__pin">
         {!prefersReduced ? (
           <div className="motion-categories__stage">
@@ -346,7 +352,7 @@ export function MotionCategories() {
                         }}
                         className={itemClass}
                       >
-                        <a
+                        <Link
                           href={LIBRARY_HREF}
                           className="motion-categories__explore-cta"
                           aria-label={`${EXPLORE_TITLE} — open animation library`}
@@ -359,7 +365,7 @@ export function MotionCategories() {
                             {cat.title}
                           </h3>
                           <p className="motion-categories__wheel-desc">{cat.body}</p>
-                        </a>
+                        </Link>
                       </article>
                     );
                   }
@@ -398,8 +404,20 @@ export function MotionCategories() {
                 >
                   <span className="motion-categories__index">{cat.index}</span>
                   <div>
-                    <h3 className="motion-categories__wheel-title">{cat.title}</h3>
-                    <p className="motion-categories__wheel-desc">{cat.body}</p>
+                    {cat.id === "explore" ? (
+                      <Link
+                        href={LIBRARY_HREF}
+                        className="motion-categories__explore-cta"
+                      >
+                        <h3 className="motion-categories__wheel-title">{cat.title}</h3>
+                        <p className="motion-categories__wheel-desc">{cat.body}</p>
+                      </Link>
+                    ) : (
+                      <>
+                        <h3 className="motion-categories__wheel-title">{cat.title}</h3>
+                        <p className="motion-categories__wheel-desc">{cat.body}</p>
+                      </>
+                    )}
                   </div>
                 </li>
               ))}

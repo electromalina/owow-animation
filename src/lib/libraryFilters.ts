@@ -53,6 +53,7 @@ const LIBRARY_OPTIONS: { id: LibraryFacet; label: string }[] = [
 
 export { FILTER_CATEGORY_OPTIONS, PLATFORM_OPTIONS, LIBRARY_OPTIONS };
 
+/** Primary platform bucket for display (exclusive). */
 export function getPlatformFacet(meta: AnimationMeta): Exclude<PlatformFacet, "all"> {
   const { platforms } = meta;
   if (platforms.includes("web") && platforms.includes("mobile")) return "both";
@@ -60,10 +61,31 @@ export function getPlatformFacet(meta: AnimationMeta): Exclude<PlatformFacet, "a
   return "desktop";
 }
 
-export function getLibraryFacet(meta: AnimationMeta): Exclude<LibraryFacet, "all"> | null {
-  if (meta.engine === "gsap") return "gsap";
-  if (meta.engine === "reanimated") return "reanimated";
-  return null;
+/** Inclusive platform matching: "both" items also appear under Desktop and Mobile. */
+export function supportsPlatformFacet(
+  meta: AnimationMeta,
+  facet: Exclude<PlatformFacet, "all">,
+): boolean {
+  const { platforms } = meta;
+  switch (facet) {
+    case "desktop":
+      return platforms.includes("web");
+    case "mobile":
+      return platforms.includes("mobile");
+    case "both":
+      return platforms.includes("web") && platforms.includes("mobile");
+  }
+}
+
+/** GSAP ↔ web, React Reanimated ↔ mobile (same mapping as the detail platform toggle). */
+export function supportsLibraryFacet(
+  meta: AnimationMeta,
+  facet: Exclude<LibraryFacet, "all">,
+): boolean {
+  if (facet === "gsap") {
+    return meta.engine === "gsap" || meta.platforms.includes("web");
+  }
+  return meta.engine === "reanimated" || meta.platforms.includes("mobile");
 }
 
 export function matchesPlatformFacet(
@@ -71,7 +93,7 @@ export function matchesPlatformFacet(
   facet: PlatformFacet,
 ): boolean {
   if (facet === "all") return true;
-  return getPlatformFacet(meta) === facet;
+  return supportsPlatformFacet(meta, facet);
 }
 
 export function matchesLibraryFacet(
@@ -79,7 +101,7 @@ export function matchesLibraryFacet(
   facet: LibraryFacet,
 ): boolean {
   if (facet === "all") return true;
-  return meta.engine === facet;
+  return supportsLibraryFacet(meta, facet);
 }
 
 export function matchesCategoryFacet(
@@ -143,10 +165,12 @@ export function buildFacetCounts(catalog: AnimationMeta[]): FacetCounts {
   };
 
   for (const item of catalog) {
-    platform[getPlatformFacet(item)] += 1;
+    if (supportsPlatformFacet(item, "desktop")) platform.desktop += 1;
+    if (supportsPlatformFacet(item, "mobile")) platform.mobile += 1;
+    if (supportsPlatformFacet(item, "both")) platform.both += 1;
 
-    const libFacet = getLibraryFacet(item);
-    if (libFacet) library[libFacet] += 1;
+    if (supportsLibraryFacet(item, "gsap")) library.gsap += 1;
+    if (supportsLibraryFacet(item, "reanimated")) library.reanimated += 1;
 
     const catFacet = getCategoryFacetId(item.category);
     if (catFacet) category[catFacet] += 1;

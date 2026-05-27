@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { SearchButton } from "@/src/components/search/SearchButton";
@@ -58,26 +58,42 @@ export function HeroLanding({ headerAnchorRef }) {
     };
   }, []);
 
+  const clearCycle = useCallback(() => {
+    if (cycleTimerRef.current) {
+      clearInterval(cycleTimerRef.current);
+      cycleTimerRef.current = null;
+    }
+    activeTweenRef.current?.kill();
+    activeTweenRef.current = null;
+  }, []);
+
+  const scrambleWord = useCallback((nextWord, onDone) => {
+    const el = keywordRef.current;
+    if (!el) return;
+    activeTweenRef.current?.kill();
+    activeTweenRef.current = scrambleTo(el, nextWord, {
+      duration: SCRAMBLE_DURATION,
+      onComplete: onDone,
+    });
+  }, []);
+
+  const advanceManualCycle = useCallback(() => {
+    if (isHandUp) return;
+    const el = keywordRef.current;
+    if (!el) return;
+
+    clearCycle();
+    const nextWord = CYCLE_WORDS[cycleIndexRef.current];
+    cycleIndexRef.current =
+      (cycleIndexRef.current + 1) % CYCLE_WORDS.length;
+    scrambleWord(nextWord, () => {
+      el.classList.add("hero-landing__keyword--active");
+    });
+  }, [isHandUp, clearCycle, scrambleWord]);
+
   useEffect(() => {
     const el = keywordRef.current;
     if (!el) return undefined;
-
-    const clearCycle = () => {
-      if (cycleTimerRef.current) {
-        clearInterval(cycleTimerRef.current);
-        cycleTimerRef.current = null;
-      }
-      activeTweenRef.current?.kill();
-      activeTweenRef.current = null;
-    };
-
-    const scrambleWord = (nextWord, onDone) => {
-      activeTweenRef.current?.kill();
-      activeTweenRef.current = scrambleTo(el, nextWord, {
-        duration: SCRAMBLE_DURATION,
-        onComplete: onDone,
-      });
-    };
 
     if (isHandUp && !wasHandUpRef.current) {
       cycleIndexRef.current = 0;
@@ -100,7 +116,7 @@ export function HeroLanding({ headerAnchorRef }) {
     }
 
     wasHandUpRef.current = isHandUp;
-  }, [isHandUp]);
+  }, [isHandUp, clearCycle, scrambleWord]);
 
   useEffect(
     () => () => {
@@ -112,12 +128,13 @@ export function HeroLanding({ headerAnchorRef }) {
   );
 
   return (
-    <section className="hero-landing" aria-label="Atlas hero">
+    <section id="top" className="hero-landing" aria-label="Atlas hero">
       <video
         ref={videoRef}
         className="hero-landing__camera"
         playsInline
         muted
+        disablePictureInPicture
         aria-hidden
       />
 
@@ -162,7 +179,9 @@ export function HeroLanding({ headerAnchorRef }) {
             <span className="hero-landing__line hero-landing__line--1">
               The future moves
               <span className="hero-landing__hint">
-                [ Move your hand infront of the camera .]
+                {cameraError
+                  ? "[ Click the highlighted word to cycle, or allow camera access. ]"
+                  : "[ Wave an open palm at the camera, or click the highlighted word. ]"}
               </span>
             </span>
 
@@ -177,12 +196,15 @@ export function HeroLanding({ headerAnchorRef }) {
                 </span>
                 <span className="hero-landing__line-2-text">
                   through{" "}
-                  <span
+                  <button
+                    type="button"
                     ref={keywordRef}
                     className="hero-landing__keyword"
+                    onClick={advanceManualCycle}
+                    aria-label="Cycle animated keyword. Activates motion, experience, exploration, and immersion."
                   >
                     {IDLE_WORD}
-                  </span>
+                  </button>
                 </span>
               </span>
             </span>
@@ -205,12 +227,12 @@ export function HeroLanding({ headerAnchorRef }) {
 
       <p className="hero-landing__status" aria-live="polite">
         {cameraError
-          ? `Camera unavailable: ${cameraError}`
+          ? `Camera unavailable: ${cameraError}. Click the keyword to cycle words.`
           : cameraReady
             ? isHandUp
               ? "Open palm detected — words cycling"
-              : "Camera on — show open fingers to camera"
-            : "Starting camera…"}
+              : "Camera on — wave an open palm or click the keyword to cycle"
+            : "Starting camera… Click the keyword anytime to cycle words."}
       </p>
     </section>
   );

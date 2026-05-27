@@ -1,7 +1,7 @@
 .hero-landing {
-  --hero-bg: #0d0d0d;
+  --hero-bg: var(--landing-surface);
   --hero-text: #fff;
-  --hero-muted: rgba(255, 255, 255, 0.5);
+  --hero-muted: var(--landing-text-secondary);
   --hero-accent: #feb800;
   --hero-font: "PP Neue Montreal", system-ui, sans-serif;
   --hero-font-mono: "PP Neue Montreal Mono", ui-monospace, monospace;
@@ -67,6 +67,12 @@
   text-decoration: none;
 }
 
+.hero-landing__logo:focus-visible {
+  outline: 2px solid var(--hero-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .hero-landing__logo img {
   display: block;
   height: clamp(20px, 2vw, 26px);
@@ -99,11 +105,18 @@
   gap: clamp(8px, 1vw, 12px);
 }
 
+.hero-landing__cta:focus-visible,
+.hero-landing__search:focus-visible {
+  outline: 2px solid var(--hero-accent);
+  outline-offset: 3px;
+}
+
 .hero-landing__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  min-height: 44px;
+  height: 44px;
   padding: 0 16px;
   border-radius: 4px;
   background: #fff;
@@ -122,7 +135,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 38px;
+  min-height: 44px;
+  height: 44px;
   min-width: 106px;
   padding: 0 14.25px;
   border: none;
@@ -137,7 +151,7 @@
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s ease;
+  transition: background 0.2s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .hero-landing__search:hover {
@@ -260,7 +274,7 @@
   line-height: 0;
   margin-left: calc(-1 * var(--hero-glyph-shift, 0px));
   transform: rotate(0deg);
-  transition: transform 0.5s ease;
+  transition: transform 0.5s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
   transform-origin: center center;
 }
 
@@ -275,8 +289,24 @@
 }
 
 .hero-landing__keyword {
+  margin: 0;
+  padding: 0.1em 0.15em;
+  border: none;
+  background: none;
+  font: inherit;
   color: var(--hero-muted);
-  transition: color 0.35s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  vertical-align: middle;
+  transition: color 0.35s var(--landing-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.hero-landing__keyword:focus-visible {
+  outline: 2px solid var(--hero-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 .hero-landing__keyword--active {
@@ -339,15 +369,17 @@
   }
 
   .hero-landing__cta {
-    height: 36px;
-    padding: 0 12px;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 14px;
     font-size: 12px;
   }
 
   .hero-landing__search {
-    height: 36px;
-    min-width: auto;
-    padding: 0 12px;
+    min-height: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0 14px;
     font-size: 11px;
   }
 
@@ -372,5 +404,19 @@
 
   .hero-landing__description {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-landing__line-2-inner {
+    flex-wrap: wrap;
+  }
+
+  .hero-landing__line-2-text {
+    white-space: normal;
+  }
+
+  .hero-landing__line--2 {
+    padding-left: 0;
   }
 }

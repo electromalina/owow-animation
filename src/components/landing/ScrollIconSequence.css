@@ -40,19 +40,19 @@
   font-family: "PP Neue Montreal", system-ui, sans-serif;
   text-align: center;
   position: relative;
-  color: rgba(255, 255, 255, 0.38);
+  color: var(--landing-text-secondary);
   width: 100%;
   max-width: 100%;
 }
 
 .scroll-icons__copy--lead {
-  font-size: 48px;
+  font-size: clamp(1.5rem, 4.5vw, 48px);
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
 .scroll-icons__copy--body {
-  font-size: 20px;
+  font-size: clamp(1rem, 2.2vw, 20px);
   line-height: 1.45;
   max-width: min(620px, 86vw);
 }
@@ -75,9 +75,54 @@
   }
 }
 
+.scroll-icons--reduced {
+  height: auto;
+  min-height: auto;
+  padding: clamp(56px, 10vh, 120px) clamp(20px, 5vw, 40px);
+  box-sizing: border-box;
+}
+
+.scroll-icons__static {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 4vh, 40px);
+  max-width: min(1100px, 94vw);
+  margin-inline: auto;
+}
+
+.scroll-icons__silver-static {
+  display: block;
+  width: min(320px, 72vw);
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+.scroll-icons--reduced .scroll-icons__copy-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.scroll-icons--reduced .scroll-icons__copy {
+  color: #fff;
+}
+
 .scroll-icons {
   position: relative;
   height: 252vh;
-  background: #0d0d0d;
+  background: var(--landing-surface);
   margin-top: -1px;
+}
+
+@media (max-width: 720px) {
+  .scroll-icons:not(.scroll-icons--reduced) {
+    height: 165vh;
+  }
+
+  .scroll-icons__copy-wrap {
+    margin-top: -72px;
+  }
 }

@@ -116,6 +116,7 @@ export function useHandGesture(enabled = true) {
         const video = videoRef.current;
         if (!video) return;
 
+        video.disablePictureInPicture = true;
         video.srcObject = stream;
         await video.play();
         setCameraReady(true);

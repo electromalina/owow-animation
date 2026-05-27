@@ -1,5 +1,5 @@
 .featured-animations {
-  --featured-bg: #0d0d0d;
+  --featured-bg: var(--landing-surface);
   --featured-card-bg: #111111;
   --featured-accent: #feb800;
   --featured-font: "PP Neue Montreal", system-ui, sans-serif;
@@ -43,7 +43,7 @@
   font-size: clamp(11px, 1vw, 14px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(226, 226, 226, 0.88);
+  color: var(--landing-text-secondary);
 }
 
 .featured-animations__viewport {
@@ -246,8 +246,43 @@
   line-height: 1.55;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--landing-text-secondary);
   text-align: center;
+}
+
+.featured-animations__details:focus-visible,
+.featured-animations__enter-link:focus-visible {
+  outline: 2px solid var(--featured-accent);
+  outline-offset: 3px;
+}
+
+.featured-animations--reduced .featured-animations__pin {
+  min-height: auto;
+  padding-bottom: clamp(56px, 8vh, 96px);
+}
+
+.featured-animations__static-grid {
+  width: 100%;
+  padding: 0 clamp(20px, 6vw, 131px);
+  box-sizing: border-box;
+}
+
+.featured-animations__track--static {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  transform: none !important;
+  will-change: auto;
+}
+
+.featured-animations__track--static .featured-animations__card {
+  width: 100%;
+  max-width: none;
+  opacity: 1;
+  transform: none;
+  z-index: auto;
 }
 
 .featured-animations__details {
@@ -257,8 +292,8 @@
   align-items: center;
   justify-content: center;
   min-inline-size: 138px;
-  min-block-size: 37px;
-  padding: 4px 8px;
+  min-block-size: 44px;
+  padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   background: none;
