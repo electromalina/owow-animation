@@ -4,7 +4,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { FeaturedScrollDemo } from "./FeaturedScrollDemo.jsx";
 import { MagneticButton } from "./MagneticButton.jsx";
 import { ParticleTextDemo } from "./ParticleTextDemo.jsx";
-import { FeaturedUnionIconsDemo } from "./FeaturedUnionIconsDemo.jsx";
 import "./FeaturedAnimations.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,12 +26,6 @@ const FEATURED_CARDS = [
     tag: "Particles / Canvas",
     title: "Atlas Library",
     variant: "particle-text",
-  },
-  {
-    id: "union-icons",
-    tag: "SVG / GSAP",
-    title: "Union Icons",
-    variant: "union-icons",
   },
   {
     id: "enter",
@@ -134,8 +127,6 @@ export function FeaturedAnimations() {
                       </div>
                     ) : card.variant === "particle-text" ? (
                       <ParticleTextDemo />
-                    ) : card.variant === "union-icons" ? (
-                      <FeaturedUnionIconsDemo />
                     ) : null}
                   </div>
 
