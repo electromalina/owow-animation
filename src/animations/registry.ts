@@ -1,5 +1,6 @@
 import { animation5 } from "@/src/animations/animation-5";
 import { animation6 } from "@/src/animations/animation-6";
+import { blurCascade } from "@/src/animations/blur-cascade";
 import { magneticButton } from "@/src/animations/magnetic-button";
 import { magneticCursor } from "@/src/animations/magnetic-cursor";
 import { particleText } from "@/src/animations/particle-text";
@@ -17,6 +18,7 @@ const modules: AnimationModule[] = [
   scrollVelocity,
   magneticButton,
   particleText,
+  blurCascade,
   animation5,
   animation6,
 ];

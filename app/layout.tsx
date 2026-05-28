@@ -47,6 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${ppNeueMontrealBook.variable} ${ppNeueMontrealMedium.variable} ${ppNeueMontrealMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <AppShell>{children}</AppShell>
       </body>

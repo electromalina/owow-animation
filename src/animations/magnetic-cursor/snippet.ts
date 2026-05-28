@@ -76,9 +76,9 @@ export function getHighlightedSnippet(
       line(`${pn("})")}`),
       line(` `),
       line(
-        `${kw("return")} ${pn("<")}${fn("button")} ${prop("ref")}${pn("={")}ref${pn("}")} ${prop("data-magnetic")}${pn(">")}Get started${pn("</")}${fn("button")}${pn(">")} `,
+        `${kw("return")} ${pn("&lt;")}${fn("button")} ${prop("ref")}${pn("={")}ref${pn("}")} ${prop("data-magnetic")}${pn("&gt;")}Get started${pn("&lt;/")}${fn("button")}${pn("&gt;")} `,
       ),
-    ].join("\n");
+    ].join("");
   }
 
   return [
@@ -91,9 +91,9 @@ export function getHighlightedSnippet(
     line(`${pn("})")}`),
     line(` `),
     line(`${kw("return")} ${pn("(")}`),
-    line(`  ${pn("<")}${fn("GestureDetector")} ${prop("gesture")}${pn("={")}gesture${pn("}>")} `),
-    line(`    ${pn("<")}${fn("Animated.View")} ${pn("/>")} `),
-    line(`  ${pn("</")}${fn("GestureDetector")}${pn(">")} `),
+    line(`  ${pn("&lt;")}${fn("GestureDetector")} ${prop("gesture")}${pn("={")}gesture${pn("}&gt;")} `),
+    line(`    ${pn("&lt;")}${fn("Animated.View")} ${pn("/&gt;")} `),
+    line(`  ${pn("&lt;/")}${fn("GestureDetector")}${pn("&gt;")} `),
     line(`${pn(")")}`),
-  ].join("\n");
+  ].join("");
 }
